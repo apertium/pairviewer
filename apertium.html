@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>Apertium Language Pairs</title>
+    <!--
+        <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?1.29.1"></script>
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.geom.js?1.29.1"></script>
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.layout.js?1.29.1"></script>
+    -->
+    
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/d3/3.0.1/d3.v3.min.js"></script>
+    <script type="text/javascript" src="colorbrewer.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+    <!--
+    <script type="text/javascript" src="../d3/d3.geom.js?1.29.1"></script>
+    <script type="text/javascript" src="../d3/d3.layout.js?1.29.1"></script>
+-->
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/themes/base/jquery-ui.css" rel="stylesheet" />
+    <link href="reset.css" rel="stylesheet" />
+    <link href="apertium.css" rel="stylesheet" />
+  </head>
+  <body>
+    <script type="text/javascript">
+    //<!--
+
+    /* Configurable variables */
+    // Inner <g> size
+    // Padding would be extended from <g> to containing <svg>
+    var w = 1024,
+    h = 768,
+    padding = 120;
+
+    
+    // Node radius
+    var r = 14;
+    
+    // Arrow head height
+    var ahh = 3;    
+    
+    // Magic number for setting the distance of the arrow point from the centre of a node... doesn't work too well
+    var distanceConstant = Math.log(r)*0.7/ahh;
+    
+    //Coordinates of the <text> in the <g> containing the <circle>
+    var textx = function(d) { r/d.name.length};
+    var texty = function(d) { r/d.name.length};
+
+    // Maximum number of stems a pair could have + 1
+    var maxStems = 100000;
+    var numShades = parseInt(Math.log(maxStems)/Math.LN10);
+
+    /* Configurable variables end */
+                
+    // Create a border between the svg canvas and the elements so that the mouseover does not get cut off
+    var svg = d3.select("body").append("svg:svg")
+    .attr("width", w + padding)
+    .attr("height", h);
+    
+    var topg = svg.append("svg:g")
+    .attr("x", padding)
+    .attr("y", 0)
+    .attr("width", w )
+    .attr("height", h )
+    ;
+    
+/*
+    // Create a legend in the top left
+    svg.append("svg:g")
+    .attr("id", "legend")
+    .append("svg:text")
+    .attr("id","legend_title")
+    .text("Legend")
+    .attr("y", 20);
+    
+    var legend = svg.select("#legend").selectAll("g")
+    .data(["trunk","staging","nursery","incubator"])
+    .enter().append("svg:g");
+    
+    legend.append("svg:path")
+    .attr("d", function(d,i) { return "m5," + (45+i*40) + "l5,5" })
+    .attr("class", function(d) { return d + " link";} );
+    
+    legend.append("svg:text")
+    .text(function(d) { return d})
+    .attr("x", 30)
+    .attr("y", function (d,i) { return 50 + i*40});
+*/
+
+    
+    // Filter box
+    var filter_box = d3.select("body").append("div")
+    .attr("id", "filter_box");
+
+    // Reduces it to merely the first box
+    function toggleFilterBox() {
+        jQuery('#filter_box fieldset:not(:nth-child(2))').toggle();
+        var isExpanded = jQuery('#filter_box fieldset:nth-child(3)').is(':visible');
+        jQuery('#filter_box fieldset:nth-child(2)').css('width', function() {
+            return isExpanded ? "auto" : padding + "px";
+        })
+        .find('table').css('display', function () {
+            return isExpanded ? "inline-block" : "block";
+        });
+        jQuery('#filter_box').css("width", function(i, old) {
+            return isExpanded ? "auto" : jQuery("fieldset:nth-child(2)", this).css("width");
+        });
+    }
+
+    filter_box.append("p")
+    .attr("class","filterInfo")
+    .text("Click here or press <Space> to reduce/expand")
+    .on("click", toggleFilterBox);
+    
+    // Repo selector checkboxes
+    var repoCheckboxFields = filter_box
+    .append("fieldset")
+    .style("width", "auto");
+
+    repoCheckboxFields.append("legend")
+    .text("Repository");
+
+    var repoCheckboxRows = repoCheckboxFields.append("table")
+    .selectAll("tr")
+    .data(["trunk","staging","nursery","incubator"])
+    .enter()
+    .append("tr");
+
+    repoCheckboxRows.append("td")
+    .style("background-color", function(d) { 
+        return d3.scale.ordinal()
+        .domain(["trunk","staging","nursery","incubator"])
+        .range([colorbrewer.BuGn[numShades + 1][5], colorbrewer.GnBu[numShades + 1][5], 
+        colorbrewer.YlOrBr[numShades + 1][5], colorbrewer.PuRd[numShades + 1][5]])
+        (d); 
+    });
+
+
+    var repoCheckboxes = repoCheckboxRows.append("td");
+
+/*
+    .style("font-size", function() { 
+        return parseInt( d3.select("#filter_box fieldset:first-of-type").style("font-size") )
+        /parseInt( d3.select("#filter_box fieldset:first-of-type li").style("font-size")) + "em";  
+    });
+*/
+
+    repoCheckboxes
+    .append("input")
+    .attr("id", function(d) { return "yes_" + d;})
+    .attr("type", "checkbox");
+    
+    repoCheckboxes
+    .append("label")    
+    .attr("for", function(d) { return "yes_" + d;})
+    .text(function(d) { return d;});
+
+    // A little table to explain what the shades of a colour mean
+    var stemRangeTable = repoCheckboxFields
+    .append("table")
+    .style("display","inline-block");
+
+    var row = stemRangeTable
+    .selectAll("tr")
+    .data(d3.range(0, numShades))
+    .enter()
+    .append("tr");
+
+    row.append("td")
+    .style("background-color", function(d){ return colorbrewer.BuGn[numShades + 1].slice(1)[d]; });
+
+    row.append("td")
+    .text(function(d) { return parseInt(Math.pow(10,d)) + "-" + (parseInt(Math.pow(10,d+1))-1); });
+
+    // Legend palette colour changes on hover over list item
+    repoCheckboxRows
+    .on("mouseover", function(d) {
+        var palette = d3.scale.ordinal()
+                .domain(["trunk","staging","nursery","incubator"])
+                .range([colorbrewer.BuGn[numShades + 1].slice(1), colorbrewer.GnBu[numShades + 1].slice(1), 
+                        colorbrewer.YlOrBr[numShades + 1].slice(1), colorbrewer.PuRd[numShades + 1].slice(1)])
+                (d);
+
+        row.selectAll("td:first-child")
+        .style("background-color", function(d2) { return palette[d2]; });
+    });
+
+    var headRow = stemRangeTable
+    .insert("tr",":first-child");
+    
+    headRow.append("td");
+    headRow.append("td").text("# of stems");
+
+    
+    //Direction selector checkboxes
+    var directnCheckboxFields = filter_box
+    .append("fieldset");
+
+    directnCheckboxFields.append("legend")
+    .text("Directionality");
+
+    var directnCheckboxes = directnCheckboxFields.append("ul")
+    .selectAll("li")
+    .data(["unidirectional","bidirectional","direction missing"])
+    .enter()
+    .append("li");
+
+    
+    directnCheckboxes
+    .append("input")
+    .attr("id", function(d) { return "yes_" + d.replace(" ","_");})
+    .attr("type", "checkbox");  
+    
+    directnCheckboxes
+    .append("label")    
+    .attr("for", function(d) { return "yes_" + d.replace(" ","_");})
+    .text(function(d) { return d;}); 
+
+    // Check all of the boxes by default
+    d3.selectAll("input[type=checkbox]:not(#yes_direction_missing)").attr("checked","checked");
+
+    // Stems slider
+    var sliderFields = filter_box.append("fieldset");
+    sliderFields.append("span").text("Has at least this many stems (maximum " + maxStems + "):");
+
+    sliderFields.append("input")
+    .attr("id","slider_display");
+    sliderFields.append("div")
+    .attr("id","slider");
+
+    sliderFields.select("#slider_display")
+    .on("change", function() {
+        var value = parseInt(jQuery("#slider_display").val());
+        if (isNaN(value)) {
+            jQuery("#slider_display").val(0);
+            value = 0;
+        }
+        if (jQuery("#slider").slider("value") != value ) {
+            jQuery("#slider").slider("value", value ); 
+        }
+    });
+
+    jQuery("#slider")
+    .slider({ min:0, max:maxStems, value: 0,
+        change:function(e, ui) {
+            d3.select("#slider_display").property("value", ui.value.toString());
+            createGraphDefault();
+        },
+        slide:function (e,ui) {
+            d3.select("#slider_display").property("value", ui.value.toString());
+        }
+    });
+
+    sliderFields.append("input")
+    .attr("type", "checkbox")
+    .attr("id", "stems_missing");
+
+    sliderFields.append("label")
+    .attr("for", "stems_missing")
+    .text("Show pairs with unknown stem counts");
+
+    // Last updated date range selection 
+    var lastUpdatedFields = filter_box
+    .append("fieldset");
+
+    lastUpdatedFields.append("span").text("Last updated after (yyyy-mm-dd)");
+
+    lastUpdatedFields.append("input")
+    .attr("id", "last_updated_from")
+    jQuery("#last_updated_from")
+    .datepicker({ defaultDate: new Date(100,0,1) })
+    .datepicker("option", "dateFormat", "yy-mm-dd")
+    .datepicker("setDate", new Date(100, 0, 1));
+    
+
+    lastUpdatedFields.append("span").text(" and before or on ");
+
+    lastUpdatedFields.append("input")
+    .attr("id", "last_updated_to");
+    // Date() is today.
+    jQuery("#last_updated_to")
+    .datepicker({ defaultDate: new Date()})
+    .datepicker("option", "dateFormat", "yy-mm-dd")
+    .datepicker("option", "maxDate", new Date())
+    .datepicker("setDate",new Date());
+
+    lastUpdatedFields.append("input")
+    .attr("type", "checkbox")
+    .attr("id", "last_updated_missing");
+
+    lastUpdatedFields.append("label")
+    .attr("for", "last_updated_missing")
+    .text("Show pairs with unknown last updated dates");
+
+    // Created date range
+    var createdFields = filter_box.append("fieldset");
+
+    createdFields.append("span").text("Created after (yyyy-mm-dd)");
+
+    createdFields.append("input")
+    .attr("id", "created_from")
+    jQuery("#created_from")
+    .datepicker({ defaultDate: new Date(100, 0, 1)})
+    .datepicker("option", "dateFormat", "yy-mm-dd")
+    .datepicker("setDate",new Date(100, 0, 1));
+
+    createdFields.append("span").text(" and before or on ");
+
+    createdFields.append("input")
+    .attr("id", "created_to");
+    // Date() is today.
+    jQuery("#created_to")
+    .datepicker({ defaultDate: new Date()})
+    .datepicker("option", "dateFormat", "yy-mm-dd")
+    .datepicker("option", "maxDate", new Date())
+    .datepicker("setDate",new Date()); 
+
+    createdFields.append("input")
+    .attr("type", "checkbox")
+    .attr("id", "created_missing");
+
+    createdFields.append("label")
+    .attr("for", "created_missing")
+    .text("Show pairs with unknown creation dates");
+
+/*    
+    // Missing data checkbox
+    var missingCheckbox = filter_box.append("fieldset");
+
+    missingCheckbox.append("input")
+    .attr("id","showMissing")
+    .attr("type","checkbox");
+    
+    missingCheckbox
+    .append("label")    
+    .attr("for", function(d) { return "showMissing";})
+    .text(function(d) { return "Show pairs that are missing data";});
+*/
+
+    // Status thing at the corner to show statistics
+    var statBox = d3.select("body").append("div").attr("id","statBox");
+
+    var statBoxTable = statBox.append("table");
+    var statFields = ["Languages","Pairs"]
+
+    var statBoxRows = statBox.selectAll("tr")
+    .data(statFields).enter().append("tr");
+    
+    statBoxRows.append("td").text(function(d) { return d});
+    statBoxRows.append("td");
+
+
+    // Convert <,>,<> into left,right,bidirectional
+    // Do not implement ?-to-unknown because you depend on its not being in the array and throwing an exception in configFilterFn(a)
+    function arrowToWord(value) {
+        return ["unidirectional","unidirectional","bidirectional"][["<",">","<>"].indexOf(value)];
+    }
+
+    // Converts <,>,<>,? into ←,→,↔,+
+    function arrowToRealArrow(value) {
+        return ["←","→","↔","&","&"][["<",">","<>","?",""].indexOf(value)];
+    }
+
+    // Filter function that takes into account all controls
+    function configFilterFn(a) {
+        //d3.select("body").append("p").text(a.lg1 +" " +a.lg2 + "#yes_" + a.repo);
+        var repoVisible = (d3.select("#yes_" + a.repo).property("checked") );
+        //alert(repoVisible);
+
+        //d3.select("body").append("p").text("#yes_" + arrowToWord(a.direction));
+        var directnVisible;
+        try {
+            directnVisible = (d3.select("#yes_" + arrowToWord(a.direction)).property("checked") );
+        } catch (e) {
+            //alert("missing dir");
+            directnVisible = d3.select("#yes_direction_missing").property("checked");
+        }
+        //alert(directnVisible);
+
+        var lastUpdatedInRange;
+        try {
+            if (new Date(a.last_updated).toString() == "Invalid Date") { 
+                throw new Error("Unknown last updated date");
+            }
+            lastUpdatedInRange = (new Date(a.last_updated) >= jQuery("#last_updated_from").datepicker("getDate"))
+                &&  (new Date(a.last_updated) <= jQuery("#last_updated_to").datepicker("getDate"));
+        }
+        catch(e) {
+            lastUpdatedInRange = d3.select("#last_updated_missing").property("checked");
+        }
+        //alert(lastUpdatedInRange);
+        
+        var createdInRange;
+        try {
+            if (new Date(a.created).toString() == "Invalid Date") {
+                throw new Error("Unknown creation date");
+            }
+            createdInRange = (new Date(a.created) >= jQuery("#created_from").datepicker("getDate"))
+                && (new Date(a.created) <= jQuery("#created_to").datepicker("getDate"));
+        }
+        catch(e) {
+            createdInRange = d3.select("#created_missing").property("checked") ;  
+        }
+        //alert(createdInRange);
+
+        var stemsInRange;
+        // if unknown, stems will be -1 or "?" (as far as I know)
+        try {
+            if (a.stems < 0 || isNaN(parseInt(a.stems)) ) {
+                throw new Error("Unknown stem count");
+            }
+            stemsInRange = (a.stems >= jQuery("#slider").slider("value"));
+        } catch(e) {
+            stemsInRange = d3.select("#stems_missing").property("checked");
+        }
+        //alert(stemsInRange);
+
+        return repoVisible && directnVisible && createdInRange && lastUpdatedInRange && stemsInRange;
+    }
+
+/*
+    //Refresh button
+    var submit = filter_box
+    .append("input")
+    .attr("type", "submit")
+    .on("click", function() {
+        createGraph(configFilterFn);
+    });
+*/
+
+    // Note that the file deals with both terminologic (Armenian: hye) and bibliographic (arm) alpha-3 codes
+    var twoToThreeTable = {};
+    d3.json("codes.json", function(error, table) {
+        twoToThreeTable = jQuery.extend(true, {}, table); 
+    });
+    
+    // Converts two-letter and three-letter bibliographic (arm) codes to three-letter terminological (hye) codes where possible
+    function twoToThree(code) {
+        if (twoToThreeTable[code] !== undefined) {
+            return twoToThreeTable[code];
+        }
+        return code;
+    }
+
+    // terminological language codes to English language names
+    var codeToLangTable = {};
+    d3.json("languages.json", function(error, table) {
+        codeToLangTable = jQuery.extend(true, {}, table);
+    });    
+
+    function codeToLanguage(code) {
+        // Presuming that it is in fact a three-letter terminological code
+        if (codeToLangTable[code] === undefined) {
+            return "Unknown";
+        }
+        return codeToLangTable[code];      
+    }
+    
+
+    function createGraph(filterFunc) {
+        //Cover the screen first
+        svg.selectAll("#loadingScreen *").style("display","inherit");
+
+        if (filterFunc === undefined) {
+            var filterFunc = function(a){ return true;};
+        }
+    
+        topg.selectAll("*").remove();
+        
+        d3.json("pairs.json.txt", function (error, tree) {
+            var links = tree.filter(filterFunc);
+
+            // Filter links by only keeping the one with the highest repo (trunk > staging > incubator > nursery)
+            var n = {};
+            function repoToPower(repo) {
+                return ["incubator","nursery","staging","trunk"].indexOf(repo);
+            }
+
+            // Create a table of language codes to new language codes (3-letter terminological if a 3-letter code is ever used, or the 2-letter code otherwise)
+            var codeToNew = {};
+            links.forEach(function(link) {
+                // If a 3-letter code has never been used, then let whatever the code is map to itself
+                if (d3.keys(codeToNew).indexOf(twoToThree(link.lg1)) == -1) {
+                    codeToNew[link.lg1] = link.lg1;
+                }
+                else {
+                    // If a 3-letter code has been used, then let whatever the code is map to its 3-letter terminological code
+                    codeToNew[link.lg1] = twoToThree(link.lg1);
+                    // And replace any 2-letter versions from previously
+                    for (var twoLetterCode in d3.keys(twoToThreeTable).filter(function(code) { return twoToThree(code) == twoToThree(link.lg1); })) {
+                        codeToNew[twoLetterCode] = twoToThree(link.lg1);
+                    }
+                }
+
+                // Likewise for the other language of the pair
+                if (d3.keys(codeToNew).indexOf(twoToThree(link.lg2)) == -1) {
+                    codeToNew[link.lg2] = link.lg2;
+                }
+                else {
+                    codeToNew[link.lg2] = twoToThree(link.lg2);
+                    for (var twoLetterCode in d3.keys(twoToThreeTable).filter(function(code) { return twoToThree(code) == twoToThree(link.lg2); })) {
+                        codeToNew[twoLetterCode] = twoToThree(link.lg2);
+                    }
+                }
+            });            
+            
+            links.forEach(function(link, i, array) {
+                // Store the original pair name so it isn't destroyed by the following conversions
+                array[i].name = link.repo + "/" + link.lg1 + "-" + link.lg2;
+                array[i].lg1 = codeToNew[array[i].lg1];
+                array[i].lg2 = codeToNew[array[i].lg2];
+                //array[i].lg1 = twoToThree(array[i].lg1);
+                //array[i].lg2 = twoToThree(array[i].lg2);
+
+                //n: array [lg1 + lg2] => the index of the link with the highest repo
+                //If the current node has higher repo than the one in n[lg1+lg2] then replace it
+
+                if (n[link.lg1 + link.lg2] === undefined) {
+                    n[link.lg1 + link.lg2] = i;
+                }
+                else if (repoToPower(links[n[link.lg1 + link.lg2]].repo) < (links[i])) {
+                    n[link.lg1 + link.lg2] = i;
+                }
+            });
+            links = links.filter(function(a, i) {  
+                return n[a.lg1 + a.lg2] !== undefined && n[a.lg1 + a.lg2] == i;
+            });
+
+            var earliestCreationDate = new Date(), earliestLastUpdatedDate = new Date();
+            links.forEach(function(link) {
+                var created = new Date(link.created);
+                if (created != "Invalid Date" && created < earliestCreationDate) {
+                    earliestCreationDate = created;
+                }
+                var lastUpdated = new Date(link.last_updated);
+                if (lastUpdated != "Invalid Date" && lastUpdated < earliestLastUpdatedDate) {
+                    earliestLastUpdatedDate = lastUpdated;
+                }
+            });
+            if (jQuery("#created_from").datepicker("option", "minDate") === null) {
+                jQuery("#created_from").datepicker("option", "minDate", earliestCreationDate);
+            }
+            if (jQuery("#last_updated_from").datepicker("option", "minDate") === null) {
+                jQuery("#last_updated_from").datepicker("option", "minDate", earliestLastUpdatedDate);
+            }
+
+            var nodes = {};
+
+            // Compute the distinct nodes from the links.
+            links.forEach(function(link) {
+                link.source = nodes[link.lg1] || (nodes[link.lg1] = {name: link.lg1});
+                link.target = nodes[link.lg2] || (nodes[link.lg2] = {name: link.lg2});
+            });
+
+            //alert(d3.keys(nodes).length);
+
+            
+            var force = d3.layout.force()
+            .nodes(d3.values(nodes))
+            .links(links)
+            .size([w, h])
+            .linkDistance(150)
+            .charge(-150)
+            .on("tick", tick)
+            .start();
+ 
+            
+            // Source-to-target arrowheads
+            topg.append("svg:defs").selectAll("marker")
+            .data(["rtrunk","rstaging","rnursery","rincubator"])
+            .enter().append("svg:marker")
+            .attr("id", String)
+            .attr("viewBox", "0 " + -r/2 + " " + r + " " + r)
+            .attr("refX", 2*r * distanceConstant )
+            .attr("refY", 0)
+            .attr("markerWidth", ahh)
+            .attr("markerHeight", ahh)
+            .attr("orient", "auto")
+            .append("svg:path")
+            .attr("d", "M0," + -r/2 + "L" + r + ",0L0," + r/2);
+            
+            // Target-to-source arrowheads
+            topg.append("svg:defs").selectAll("marker")
+            .data(["ltrunk","lstaging","lnursery","lincubator"])
+            .enter().append("svg:marker")
+            .attr("id", String)
+            .attr("viewBox", "0 " + -r/2 + " " + r + " " + r)
+            .attr("refX", -r * distanceConstant)
+            .attr("refY", 0)
+            .attr("markerWidth", ahh)
+            .attr("markerHeight", ahh)
+            .attr("orient", "auto")
+            .append("svg:path")
+            .attr("d", "M" + r + "," + r/2 + "L0,0L" + r + "," + -r/2);
+
+    
+            // Arrows
+            var path = topg.append("svg:g").selectAll("path")
+            .data(force.links())
+            .enter().append("svg:path")
+            .attr("class", function(d) { return "link " + d.repo; })
+            .attr("marker-end", function(d) { 
+                return (d.direction.indexOf(">") != -1) ? "url(#r" + d.repo + ")" : ""; 
+            })
+            .attr("marker-start", function(d) {
+                return (d.direction.indexOf("<") != -1) ? "url(#l" + d.repo + ")" : ""; 
+            })
+            .style("stroke", function(d) {               
+                try {
+                    // Even if d.stems is a non-numerical String, it does not throw an error...
+                    if (isNaN(Math.log(d.stems))) {
+                        throw new Error("Node has unknown stem count");
+                    }
+                    return d3.scale.ordinal()
+                    .domain(["trunk","staging","nursery","incubator"])
+                    .range([colorbrewer.BuGn[numShades + 1].slice(1), colorbrewer.GnBu[numShades + 1].slice(1), 
+                            colorbrewer.YlOrBr[numShades + 1].slice(1), colorbrewer.PuRd[numShades + 1].slice(1)])
+                    (d.repo)[parseInt(Math.log(d.stems)/Math.LN10)];
+                }
+                catch (e) {
+                    // Give it the lightest colour if the stem count is unknown
+                    return d3.scale.ordinal()
+                    .domain(["trunk","staging","nursery","incubator"])
+                    .range([colorbrewer.BuGn[numShades + 1].slice(1), colorbrewer.GnBu[numShades + 1].slice(1), 
+                            colorbrewer.YlOrBr[numShades + 1].slice(1), colorbrewer.PuRd[numShades + 1].slice(1)])
+                    (d.repo)[0];
+                }
+            })
+            .on("mouseover", function (d) {
+                topg.selectAll("#infobox tspan:not(#info_pairname)").attr("display","inherit");
+                topg.select("#info_original_name").text(d.name);
+                topg.select("#info_pairname").text(codeToLanguage(d.lg1) + " " + arrowToRealArrow(d.direction) + " " + codeToLanguage(d.lg2)); 
+                topg.select("#info_created").text("Created: " + d.created);
+                topg.select("#info_last_updated").text("Last updated: " + d.last_updated);
+                topg.select("#info_stems").text("Number of stems: " + ((d.stems == -1) ? "?" : d.stems) );
+
+                // Legend palette colour changes on hover over list item
+                var palette = d3.scale.ordinal()
+                        .domain(["trunk","staging","nursery","incubator"])
+                        .range([colorbrewer.BuGn[numShades + 1].slice(1), colorbrewer.GnBu[numShades + 1].slice(1), 
+                                colorbrewer.YlOrBr[numShades + 1].slice(1), colorbrewer.PuRd[numShades + 1].slice(1)])
+                        (d.repo);
+
+                row.selectAll("td:first-child")
+                    .style("background-color", function(d2) { return palette[d2]; });
+            });
+
+            
+            var circle = topg.append("svg:g").selectAll("circle")
+            .data(force.nodes())
+            .enter().append("svg:circle")
+            .attr("r", r)
+            .call(force.drag)
+            .on("mouseover", function(d) {
+                topg.selectAll("#infobox tspan:not(#info_pairname)").attr("display","none");
+                topg.select("#info_pairname").text(codeToLanguage(d.name));
+            });
+
+
+
+            var text = topg.append("svg:g").selectAll("g")
+            .data(force.nodes())
+            .enter().append("svg:g");
+
+            // A copy of the text with a thick white stroke for legibility.
+            text.append("svg:text")
+            .attr("x", textx)
+            .attr("y", texty)
+            .attr("class", "shadow")
+            .text(function(d) { return d.name; });
+
+            text.append("svg:text")
+            .attr("x", textx)
+            .attr("y", texty)
+            .text(function(d) { return d.name; });
+
+            // Use elliptical arc path segments to doubly-encode directionality.
+            function tick() {
+                path.attr("d", function(d) {
+                    var dx = d.target.x - d.source.x;
+                    var dy = d.target.y - d.source.y;
+                    var dr = Math.sqrt(dx * dx + dy * dy);
+                    return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
+                });
+
+                circle.attr("transform", function(d) {
+                    return "translate(" + d.x + "," + d.y + ")";
+                });
+
+                text.attr("transform", function(d) {
+                    return "translate(" + d.x + "," + d.y + ")";
+                });
+            }
+            
+                        
+            //Info box
+            var infobox = topg.append("svg:g").attr("id","infobox");
+
+            topg.select("#infobox")
+            .append("rect");
+            
+            /*
+            var infobox = info.append("svg:rect")
+            .attr("id","infobox")
+            .attr("width", "14em")
+            .attr("height", "5em");
+            */
+            
+            infobox.append("svg:g").append("text").selectAll("tspan")
+            .data(["original_name","created","last_updated","stems"])
+            .enter().append("svg:tspan")
+            .attr("id", function(d) { return "info_" + d; } );
+
+            infobox.select("g text").insert("tspan","tspan:first-of-type")
+            .attr("id", "info_pairname");
+  
+            //Only update the position of the info box when it will actually be shown i.e. when over an arrow or node
+            topg.on("mousemove", function() {
+                // Do the plus 20 thing or else it will be in the way of mouse events
+                var dialogX = d3.mouse(topg[0][0])[0] + 20;
+                var dialogWidth = parseInt(topg.select("#infobox rect").attr("width"));
+
+                //Move the dialog backwards if it would stretch beyond the <g>
+                if (dialogX + dialogWidth > w + padding) {
+                    infobox.attr("x", dialogX - ((dialogX + dialogWidth) - (w + padding) ) + "px" );
+                }
+                else {
+                    infobox.attr("x", dialogX + "px")
+                }
+                infobox.attr("y", d3.event.pageY + "px");
+                
+                infobox.select("rect")
+                .attr("x", parseInt(infobox.attr("x")) - 5 + "px")
+                .attr("y", parseInt(infobox.attr("y")) - 5 + "px");
+
+                infobox.selectAll("text")
+                .attr("x", infobox.attr("x") )
+                .attr("y", infobox.attr("y") );
+
+                infobox.selectAll("tspan")
+                .attr("x", infobox.attr("x"))           
+                .attr("dy", parseInt(infobox.style("font-size")) + "px");
+            });
+
+            d3.selectAll("path, circle").on("mouseover.general", function() {
+                topg.select("#infobox rect")
+                .attr("width", infobox.select("g")[0][0].getBBox().width + 10 + "px")
+                .attr("height", infobox.select("g")[0][0].getBBox().height + 10 + "px");
+                // Appear
+                topg.select("#infobox").selectAll("*").attr("visibility", "visible");
+            })
+            .on("mouseout", function(d) {
+                topg.select("#infobox").selectAll("*").attr("visibility", "hidden"); 
+            });     
+            // Update statistics
+            statBoxRows.selectAll("td:last-child").text(function(d) {
+                return d3.scale.ordinal().domain(statFields)
+                .range([
+                     force.nodes().length ,
+                     force.links().length,
+                ])
+                (d);
+            });
+        });
+
+        
+        //And now, unveil!
+        svg.selectAll("#loadingScreen *").style("display","none");
+    }
+
+    // A loading screen cover
+    var loadingScreen = svg.append("g")
+    .attr("id","loadingScreen");
+
+    loadingScreen.append("rect")
+    .attr("x", 0)
+    .attr("y", 0)
+    .attr("width", w+padding)
+    .attr("height", h);    
+ 
+    loadingScreen.append("text")
+    .text("Please Wait.")
+    .attr("x", (w + padding)/2)
+    .attr("y", h/2);
+
+    function createGraphDefault() {
+        createGraph(configFilterFn);
+    }
+
+    // Set all input elements to update the graph automatically
+    d3.selectAll("#filter_box input:not(#slider_display)")
+    .on("change", createGraphDefault);
+
+    jQuery('#last_updated_to, #last_updated_from, #created_to, #created_from').each(function() {
+        jQuery(this).datepicker("option","onSelect", function(dateText, inst) {
+            createGraphDefault();
+        });
+    });
+
+    jQuery(document).keydown(function(e) {
+        // Close the filter box on spacebar keydown
+        if (e.which == 32 ) {
+            toggleFilterBox();
+            return false;
+        }
+    });    
+
+
+    //Make a graph. 
+    createGraphDefault();
+
+/*
+    function aaaaa() {
+        console.log(d3.select("#infobox g")[0][0].getBBox().width  + " vs " + topg.select("#infobox rect")[0][0].getBBox().width );
+        setTimeout(aaaaa ,10);
+    }
+    setTimeout(aaaaa, 10);
+*/
+    //-->
+    </script>
+
+  </body>
+</html>
