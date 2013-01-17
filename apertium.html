@@ -560,8 +560,8 @@
             .nodes(d3.values(nodes))
             .links(links)
             .size([w, h])
-            .linkDistance(150)
-            .charge(-150)
+            .linkDistance(100)
+            .charge(-300)
             .on("tick", tick)
             .start();
  
@@ -692,8 +692,11 @@
                     return "translate(" + d.x + "," + d.y + ")";
                 });
             }
-            
-                        
+
+            force.start();
+            for(var i=0;i<200+4*force.nodes().length;i++) force.tick();
+            force.start(); // bump it a bit so it doesn't stay completely still
+
             //Info box
             var infobox = topg.append("svg:g").attr("id","infobox");
 
