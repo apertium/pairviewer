@@ -1,0 +1,195 @@
+
+/*
+marker#ltrunk, marker#rtrunk {
+    fill: red;
+}
+
+marker#lstaging, marker#staging {
+    fill: #f60;
+}
+
+marker#lnursery, marker#rursery {
+    fill: #fc0;
+}
+
+marker#lincubator,marker#lincubator {
+    fill: #ccc;
+}
+*/
+svg > g{
+    align:
+}
+
+marker {
+    fill: black;
+    stroke: white;
+    stroke-width: 0.5px;
+}
+
+
+path.link {
+  fill: none;
+  stroke-width: 5px;
+}
+
+/*
+path.trunk {
+    stroke: #1f77b4;
+}
+
+path.staging {
+    stroke: #ff7f0e;
+}
+
+path.nursery {
+    stroke: #2ca02c;
+}
+
+path.incubator {
+    stroke: #d62728;
+}
+*/
+
+circle {
+  fill: #ccc;
+  stroke: #333;
+  stroke-width: 1.5px;
+}
+
+text {
+  font: 12px sans-serif;
+  pointer-events: none;
+  text-anchor: middle;
+}
+
+text.shadow {
+  stroke: #fff;
+  stroke-width: 1.5px;
+  stroke-opacity: .8;
+}
+
+#legend {
+    position: fixed;
+}
+
+#legend text {
+    text-anchor: start;
+}
+
+#legend_title {
+    font-weight: bold;
+}
+
+
+#infobox tspan {
+    font: 1em sans-serif;
+    pointer-events: none;
+    text-anchor: start; 
+}
+
+#infobox {
+    position: absolute;
+    z-index: 99999999;
+}
+
+#infobox rect {
+    fill: #ccf;
+    fill-opacity: 0.8;
+    stroke: #333;
+    stroke-width: 3px;
+}
+
+#infobox #info_pairname {
+    font: 1.4em sans-serif;
+    font-weight: bold;
+}
+
+#infobox #info_original_name {
+    font: 0.8em monospace;
+    vertical-align: middle;
+}
+
+#filter_box {
+    position: fixed;
+    top: 0;
+}
+
+p.filterInfo {
+    font: 0.7em sans-serif;
+    text-align: left;
+    color: #009;
+}
+p.filterInfo:hover {
+    cursor:pointer;
+    color: red;
+}
+
+#filter_box fieldset {
+    font: 1em sans-serif;
+    display: inline-block;
+    background-color: rgba(255,255,255,0.8);
+    border: 1px solid #333;
+    margin: 2px 2px 2px 2px;
+    border-radius: 3px;
+    padding: 2px 2px 2px 2px;
+}
+
+#filter_box input:not([type=checkbox])  {
+    width: 6em;
+}
+
+#filter_box input[type=checkbox] {
+    margin-bottom: 2px;
+}
+
+#filter_box table:first-of-type {
+    display: inline-block;
+    vertical-align: top;
+    margin-bottom: 1em;
+}
+
+#filter_box fieldset:first-of-type table:first-of-type td:last-child {
+    color: black;
+    vertical-align: middle;
+}
+
+
+#filter_box fieldset:first-of-type table td:first-child {
+    width: 2em;
+    height: 2em;
+}
+
+#filter_box fieldset:first-of-type table td:last-child {
+    font-size: 0.9em;
+}
+
+#last_updated_to, #last_updated_from, #created_to, #created_from {
+}
+
+#loadingScreen rect {
+    fill: black;
+    fill-opacity: 0.9;
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+#loadingScreen text {
+    stroke: white;
+    fill: white;
+    font: 4em sans-serif;
+    display: none;
+}
+
+#statBox {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+#statBox td {
+    padding-right: 1em;
+}

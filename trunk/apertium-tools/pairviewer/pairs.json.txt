@@ -1,0 +1,1775 @@
+[
+	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2007-09-24",
+		"repo": "trunk",
+		"stems": 5768,
+		"lg2": "nl",
+		"lg1": "af"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-12-29",
+		"created": "2007-05-02",
+		"repo": "trunk",
+		"stems": 17382,
+		"lg2": "fr",
+		"lg1": "br"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2009-07-17",
+		"repo": "trunk",
+		"stems": 7554,
+		"lg2": "it",
+		"lg1": "ca"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2013-01-08",
+		"created": "2007-05-02",
+		"repo": "trunk",
+		"stems": 10932,
+		"lg2": "en",
+		"lg1": "cy"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-12-18",
+		"created": "2007-05-10",
+		"repo": "trunk",
+		"stems": 30410,
+		"lg2": "ca",
+		"lg1": "en"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-11-19",
+		"created": "2008-02-11",
+		"repo": "trunk",
+		"stems": 23640,
+		"lg2": "es",
+		"lg1": "en"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2008-11-19",
+		"repo": "trunk",
+		"stems": 15160,
+		"lg2": "gl",
+		"lg1": "en"
+	},
+ 	{
+		"direction": "<",
+		"last_updated": "2012-10-10",
+		"created": "2007-12-21",
+		"repo": "trunk",
+		"stems": 35004,
+		"lg2": "ca",
+		"lg1": "eo"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2008-08-24",
+		"repo": "trunk",
+		"stems": 25520,
+		"lg2": "en",
+		"lg1": "eo"
+	},
+ 	{
+		"direction": "<",
+		"last_updated": "2012-10-10",
+		"created": "2007-12-21",
+		"repo": "trunk",
+		"stems": 41463,
+		"lg2": "es",
+		"lg1": "eo"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2009-05-05",
+		"repo": "trunk",
+		"stems": 29833,
+		"lg2": "fr",
+		"lg1": "eo"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-12-30",
+		"created": "2007-05-16",
+		"repo": "trunk",
+		"stems": 15014,
+		"lg2": "an",
+		"lg1": "es"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2013-01-08",
+		"created": "2009-04-22",
+		"repo": "trunk",
+		"stems": 29701,
+		"lg2": "ast",
+		"lg1": "es"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-12-15",
+		"created": "2007-05-16",
+		"repo": "trunk",
+		"stems": 29503,
+		"lg2": "ca",
+		"lg1": "es"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2007-06-20",
+		"repo": "trunk",
+		"stems": 7632,
+		"lg2": "gl",
+		"lg1": "es"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2007-07-17",
+		"repo": "trunk",
+		"stems": 9833,
+		"lg2": "it",
+		"lg1": "es"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-16",
+		"created": "2007-05-15",
+		"repo": "trunk",
+		"stems": 9086,
+		"lg2": "pt",
+		"lg1": "es"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-08-06",
+		"created": "2007-04-26",
+		"repo": "trunk",
+		"stems": 15388,
+		"lg2": "ro",
+		"lg1": "es"
+	},
+ 	{
+		"direction": ">",
+		"last_updated": "2012-10-10",
+		"created": "2007-07-19",
+		"repo": "trunk",
+		"stems": 8567,
+		"lg2": "en",
+		"lg1": "eu"
+	},
+ 	{
+		"direction": ">",
+		"last_updated": "2012-10-10",
+		"created": "2007-07-19",
+		"repo": "trunk",
+		"stems": 9575,
+		"lg2": "es",
+		"lg1": "eu"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2007-05-13",
+		"repo": "trunk",
+		"stems": 7320,
+		"lg2": "ca",
+		"lg1": "fr"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2013-01-07",
+		"created": "2007-02-23",
+		"repo": "trunk",
+		"stems": 20182,
+		"lg2": "es",
+		"lg1": "fr"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-11-21",
+		"created": "2012-05-04",
+		"repo": "trunk",
+		"stems": 8180,
+		"lg2": "ms",
+		"lg1": "id"
+	},
+ 	{
+		"direction": ">",
+		"last_updated": "2012-10-10",
+		"created": "2007-06-20",
+		"repo": "trunk",
+		"stems": 17695,
+		"lg2": "en",
+		"lg1": "is"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2010-04-05",
+		"repo": "trunk",
+		"stems": 8581,
+		"lg2": "bg",
+		"lg1": "mk"
+	},
+ 	{
+		"direction": ">",
+		"last_updated": "2013-01-08",
+		"created": "2010-09-05",
+		"repo": "trunk",
+		"stems": 30417,
+		"lg2": "en",
+		"lg1": "mk"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2013-01-08",
+		"created": "2008-03-24",
+		"repo": "trunk",
+		"stems": 53983,
+		"lg2": "nb",
+		"lg1": "nn"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-26",
+		"created": "2007-04-26",
+		"repo": "trunk",
+		"stems": 13900,
+		"lg2": "ca",
+		"lg1": "oc"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2007-10-03",
+		"repo": "trunk",
+		"stems": -1,
+		"lg2": "es",
+		"lg1": "oc"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2008-03-21",
+		"repo": "trunk",
+		"stems": 6670,
+		"lg2": "ca",
+		"lg1": "pt"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2008-06-09",
+		"repo": "trunk",
+		"stems": -1,
+		"lg2": "gl",
+		"lg1": "pt"
+	},
+ 	{
+		"direction": ">",
+		"last_updated": "2012-11-12",
+		"created": "2007-06-08",
+		"repo": "trunk",
+		"stems": 8672,
+		"lg2": "mk",
+		"lg1": "sh"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-14",
+		"created": "2012-04-27",
+		"repo": "trunk",
+		"stems": 13187,
+		"lg2": "sl",
+		"lg1": "sh"
+	},
+ 	{
+		"direction": ">",
+		"last_updated": "2012-10-08",
+		"created": "2010-01-11",
+		"repo": "trunk",
+		"stems": 57908,
+		"lg2": "nob",
+		"lg1": "sme"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2013-01-09",
+		"created": "2007-04-25",
+		"repo": "trunk",
+		"stems": 5989,
+		"lg2": "da",
+		"lg1": "sv"
+	},
+ 	{
+		"direction": ">",
+		"last_updated": "2011-10-19",
+		"created": "2011-03-30",
+		"repo": "trunk",
+		"stems": 2792,
+		"lg2": "az",
+		"lg1": "tr"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2011-08-30",
+		"created": "2010-10-28",
+		"repo": "staging",
+		"stems": 2450,
+		"lg2": "sc",
+		"lg1": "ca"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2011-02-10",
+		"created": "2007-02-23",
+		"repo": "staging",
+		"stems": 16173,
+		"lg2": "pt",
+		"lg1": "fr"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-09-17",
+		"created": "2012-04-02",
+		"repo": "staging",
+		"stems": 6719,
+		"lg2": "ar",
+		"lg1": "mt"
+	},
+ 	{
+		"direction": ">",
+		"last_updated": "2012-09-18",
+		"created": "2011-04-27",
+		"repo": "staging",
+		"stems": 3252,
+		"lg2": "he",
+		"lg1": "mt"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-01-09",
+		"created": "2010-01-25",
+		"repo": "staging",
+		"stems": 12211,
+		"lg2": "cs",
+		"lg1": "pl"
+	},
+ 	{
+		"direction": ">",
+		"last_updated": "2012-09-10",
+		"created": "2011-03-30",
+		"repo": "staging",
+		"stems": 5988,
+		"lg2": "kir",
+		"lg1": "tur"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-12-13",
+		"created": "2011-03-15",
+		"repo": "nursery",
+		"stems": 7937,
+		"lg2": "en",
+		"lg1": "bg"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2007-05-02",
+		"repo": "nursery",
+		"stems": 11140,
+		"lg2": "ro",
+		"lg1": "ca"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2011-03-16",
+		"repo": "nursery",
+		"stems": 7,
+		"lg2": "en",
+		"lg1": "da"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-09-04",
+		"created": "2010-08-08",
+		"repo": "nursery",
+		"stems": 5383,
+		"lg2": "nb",
+		"lg1": "da"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2007-04-23",
+		"repo": "nursery",
+		"stems": 5530,
+		"lg2": "af",
+		"lg1": "en"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2007-05-10",
+		"repo": "nursery",
+		"stems": 5030,
+		"lg2": "pt",
+		"lg1": "en"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-12-12",
+		"created": "?",
+		"repo": "nursery",
+		"stems": -1,
+		"lg2": "ru",
+		"lg1": "eo"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2010-01-25",
+		"repo": "nursery",
+		"stems": 363,
+		"lg2": "cs",
+		"lg1": "es"
+	},
+ 	{
+		"direction": ">",
+		"last_updated": "2012-10-10",
+		"created": "2009-05-08",
+		"repo": "nursery",
+		"stems": 3367,
+		"lg2": "ssp",
+		"lg1": "es"
+	},
+ 	{
+		"direction": "<",
+		"last_updated": "2012-10-10",
+		"created": "2009-10-01",
+		"repo": "nursery",
+		"stems": 764,
+		"lg2": "is",
+		"lg1": "fo"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2011-03-16",
+		"repo": "nursery",
+		"stems": 5,
+		"lg2": "it",
+		"lg1": "fr"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2008-06-14",
+		"repo": "nursery",
+		"stems": 7538,
+		"lg2": "gd",
+		"lg1": "ga"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-09-01",
+		"created": "2011-03-25",
+		"repo": "nursery",
+		"stems": 6476,
+		"lg2": "sv",
+		"lg1": "is"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2011-03-16",
+		"repo": "nursery",
+		"stems": 5,
+		"lg2": "pt",
+		"lg1": "it"
+	},
+ 	{
+		"direction": ">",
+		"last_updated": "2012-10-11",
+		"created": "2010-10-08",
+		"repo": "nursery",
+		"stems": 20782,
+		"lg2": "en",
+		"lg1": "no"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2010-01-25",
+		"repo": "nursery",
+		"stems": 3166,
+		"lg2": "uk",
+		"lg1": "pl"
+	},
+ 	{
+		"direction": ">",
+		"last_updated": "2012-09-26",
+		"created": "2012-04-14",
+		"repo": "nursery",
+		"stems": 2319,
+		"lg2": "spa",
+		"lg1": "quz"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2011-03-17",
+		"repo": "nursery",
+		"stems": 7889,
+		"lg2": "it",
+		"lg1": "ro"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2011-04-18",
+		"repo": "nursery",
+		"stems": 9773,
+		"lg2": "es",
+		"lg1": "sl"
+	},
+ 	{
+		"direction": "<",
+		"last_updated": "2012-10-11",
+		"created": "2010-05-17",
+		"repo": "nursery",
+		"stems": 6002,
+		"lg2": "fin",
+		"lg1": "sme"
+	},
+ 	{
+		"direction": ">",
+		"last_updated": "2011-08-08",
+		"created": "2010-07-18",
+		"repo": "nursery",
+		"stems": 768,
+		"lg2": "sma",
+		"lg1": "sme"
+	},
+ 	{
+		"direction": ">",
+		"last_updated": "2012-10-10",
+		"created": "2008-10-07",
+		"repo": "nursery",
+		"stems": 39216,
+		"lg2": "smj",
+		"lg1": "sme"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2011-03-16",
+		"repo": "nursery",
+		"stems": 7,
+		"lg2": "en",
+		"lg1": "sv"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2007-06-08",
+		"repo": "nursery",
+		"stems": 10245,
+		"lg2": "fa",
+		"lg1": "tg"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-16",
+		"created": "2011-12-15",
+		"repo": "nursery",
+		"stems": 2486,
+		"lg2": "ba",
+		"lg1": "tt"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-05-27",
+		"created": "2012-03-30",
+		"repo": "nursery",
+		"stems": 2813,
+		"lg2": "tur",
+		"lg1": "tuk"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-11-21",
+		"created": "2012-01-21",
+		"repo": "nursery",
+		"stems": 140,
+		"lg2": "rus",
+		"lg1": "udm"
+	},
+ 	{
+		"direction": ">",
+		"last_updated": "2012-05-05",
+		"created": "2010-03-17",
+		"repo": "nursery",
+		"stems": 329,
+		"lg2": "hi",
+		"lg1": "ur"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2007-09-24",
+		"repo": "incubator",
+		"stems": 5610,
+		"lg2": "nl",
+		"lg1": "af"
+	},
+ 	{
+		"direction": ">",
+		"last_updated": "2011-12-06",
+		"created": "2011-11-27",
+		"repo": "incubator",
+		"stems": 821,
+		"lg2": "hi",
+		"lg1": "as"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2010-12-10",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 636,
+		"lg2": "el",
+		"lg1": "bg"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-01-06",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 2921,
+		"lg2": "ru",
+		"lg1": "bg"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2011-08-26",
+		"created": "2009-04-05",
+		"repo": "incubator",
+		"stems": 6830,
+		"lg2": "en",
+		"lg1": "bn"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2010-11-29",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 219,
+		"lg2": "hi",
+		"lg1": "bn"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2009-05-02",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 1060,
+		"lg2": "cy",
+		"lg1": "br"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-10-11",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 6807,
+		"lg2": "es",
+		"lg1": "br"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2011-02-10",
+		"created": "2010-10-28",
+		"repo": "incubator",
+		"stems": 2450,
+		"lg2": "sc",
+		"lg1": "ca"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-03-16",
+		"created": "?",
+		"repo": "incubator",
+		"stems": -1,
+		"lg2": "en",
+		"lg1": "cs"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2010-12-27",
+		"repo": "incubator",
+		"stems": 11984,
+		"lg2": "sk",
+		"lg1": "cs"
+	},
+ 	{
+		"direction": ">",
+		"last_updated": "2010-04-16",
+		"created": "2010-03-27",
+		"repo": "incubator",
+		"stems": 545,
+		"lg2": "sl",
+		"lg1": "cs"
+	},
+ 	{
+		"direction": ">",
+		"last_updated": "2011-09-07",
+		"created": "2011-03-08",
+		"repo": "incubator",
+		"stems": 71,
+		"lg2": "ru",
+		"lg1": "cv"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-12-16",
+		"created": "2012-01-03",
+		"repo": "incubator",
+		"stems": 4822,
+		"lg2": "tr",
+		"lg1": "cv"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-01-30",
+		"created": "2012-01-21",
+		"repo": "incubator",
+		"stems": 63,
+		"lg2": "tt",
+		"lg1": "cv"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-10-11",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 6062,
+		"lg2": "es",
+		"lg1": "cy"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2009-11-30",
+		"created": "?",
+		"repo": "incubator",
+		"stems": -1,
+		"lg2": "fo",
+		"lg1": "da"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2011-02-10",
+		"created": "2010-08-08",
+		"repo": "incubator",
+		"stems": 5383,
+		"lg2": "nb",
+		"lg1": "da"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2008-08-02",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 112325,
+		"lg2": "en",
+		"lg1": "de"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2010-04-03",
+		"repo": "incubator",
+		"stems": 26,
+		"lg2": "nl",
+		"lg1": "de"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2012-02-08",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 566,
+		"lg2": "en",
+		"lg1": "el"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2007-04-25",
+		"repo": "incubator",
+		"stems": 520,
+		"lg2": "de",
+		"lg1": "en"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2007-05-10",
+		"repo": "incubator",
+		"stems": 9563,
+		"lg2": "fr",
+		"lg1": "en"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2012-11-15",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 1378,
+		"lg2": "ga",
+		"lg1": "en"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2011-12-13",
+		"created": "2009-07-01",
+		"repo": "incubator",
+		"stems": 21014,
+		"lg2": "hi",
+		"lg1": "en"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2008-02-11",
+		"repo": "incubator",
+		"stems": 16618,
+		"lg2": "it",
+		"lg1": "en"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2010-12-06",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 89,
+		"lg2": "lt",
+		"lg1": "en"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2011-02-24",
+		"repo": "incubator",
+		"stems": 2310,
+		"lg2": "lv",
+		"lg1": "en"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-06-19",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 750,
+		"lg2": "mt",
+		"lg1": "en"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2011-04-29",
+		"created": "2007-05-20",
+		"repo": "incubator",
+		"stems": 3291,
+		"lg2": "nl",
+		"lg1": "en"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2007-10-08",
+		"repo": "incubator",
+		"stems": 5903,
+		"lg2": "pl",
+		"lg1": "en"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2009-05-02",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 158,
+		"lg2": "sco",
+		"lg1": "en"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2010-08-30",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 461,
+		"lg2": "sq",
+		"lg1": "en"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2013-01-09",
+		"created": "2012-06-07",
+		"repo": "incubator",
+		"stems": 1219,
+		"lg2": "kaz",
+		"lg1": "eng"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-06-15",
+		"created": "2012-06-15",
+		"repo": "incubator",
+		"stems": 1,
+		"lg2": "tel",
+		"lg1": "eng"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-12-12",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 4062,
+		"lg2": "be",
+		"lg1": "eo"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-12-12",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 1540,
+		"lg2": "bg",
+		"lg1": "eo"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-12-12",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 3296,
+		"lg2": "br",
+		"lg1": "eo"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-12-12",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 1238,
+		"lg2": "cs",
+		"lg1": "eo"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-12-12",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 22906,
+		"lg2": "de",
+		"lg1": "eo"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-12-12",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 1028,
+		"lg2": "el",
+		"lg1": "eo"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-12-12",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 3814,
+		"lg2": "fa",
+		"lg1": "eo"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-12-12",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 931,
+		"lg2": "fi",
+		"lg1": "eo"
+	},
+ 	{
+		"direction": "",
+		"last_updated": "2012-12-21",
+		"created": "2012-11-18",
+		"repo": "incubator",
+		"stems": -1,
+		"lg2": "fr",
+		"lg1": "eo"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-12-12",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 1348,
+		"lg2": "he",
+		"lg1": "eo"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-12-12",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 24723,
+		"lg2": "hu",
+		"lg1": "eo"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-12-12",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 7786,
+		"lg2": "it",
+		"lg1": "eo"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-12-12",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 5893,
+		"lg2": "ne",
+		"lg1": "eo"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-12-12",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 16512,
+		"lg2": "nl",
+		"lg1": "eo"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-12-12",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 15209,
+		"lg2": "pl",
+		"lg1": "eo"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-12-12",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 11642,
+		"lg2": "pt",
+		"lg1": "eo"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-05-21",
+		"created": "?",
+		"repo": "incubator",
+		"stems": -1,
+		"lg2": "ru",
+		"lg1": "eo"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2010-11-19",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 1902,
+		"lg2": "sk",
+		"lg1": "eo"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-12-12",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 3591,
+		"lg2": "sv",
+		"lg1": "eo"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-12-12",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 1386,
+		"lg2": "tr",
+		"lg1": "eo"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-12-21",
+		"created": "2012-10-24",
+		"repo": "incubator",
+		"stems": 427,
+		"lg2": "de",
+		"lg1": "es"
+	},
+ 	{
+		"direction": ">",
+		"last_updated": "2011-10-11",
+		"created": "2007-12-21",
+		"repo": "incubator",
+		"stems": 30,
+		"lg2": "ia",
+		"lg1": "es"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-03-16",
+		"created": "?",
+		"repo": "incubator",
+		"stems": -1,
+		"lg2": "en",
+		"lg1": "et"
+	},
+ 	{
+		"direction": ">",
+		"last_updated": "2009-05-23",
+		"created": "2007-07-19",
+		"repo": "incubator",
+		"stems": 5454,
+		"lg2": "fr",
+		"lg1": "eu"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-08-18",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 300,
+		"lg2": "hu",
+		"lg1": "eu"
+	},
+ 	{
+		"direction": ">",
+		"last_updated": "2012-04-19",
+		"created": "2011-07-28",
+		"repo": "incubator",
+		"stems": 508,
+		"lg2": "sme",
+		"lg1": "eus"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-03-16",
+		"created": "?",
+		"repo": "incubator",
+		"stems": -1,
+		"lg2": "en",
+		"lg1": "fi"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-01-29",
+		"created": "2012-01-21",
+		"repo": "incubator",
+		"stems": 53,
+		"lg2": "et",
+		"lg1": "fi"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-01-31",
+		"created": "2012-01-21",
+		"repo": "incubator",
+		"stems": 88,
+		"lg2": "udm",
+		"lg1": "fin"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2009-10-07",
+		"created": "?",
+		"repo": "incubator",
+		"stems": -1,
+		"lg2": "nb",
+		"lg1": "fo"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2011-04-29",
+		"created": "2007-05-20",
+		"repo": "incubator",
+		"stems": 1585,
+		"lg2": "nl",
+		"lg1": "fr"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2007-04-26",
+		"repo": "incubator",
+		"stems": 7891,
+		"lg2": "ro",
+		"lg1": "fr"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2012-03-05",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 22113,
+		"lg2": "gv",
+		"lg1": "ga"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2012-03-22",
+		"created": "?",
+		"repo": "incubator",
+		"stems": -1,
+		"lg2": "es",
+		"lg1": "gn"
+	},
+ 	{
+		"direction": "<",
+		"last_updated": "2012-11-29",
+		"created": "2012-11-27",
+		"repo": "incubator",
+		"stems": 535,
+		"lg2": "spa",
+		"lg1": "guc"
+	},
+ 	{
+		"direction": ">",
+		"last_updated": "2012-10-10",
+		"created": "2010-01-18",
+		"repo": "incubator",
+		"stems": 1784,
+		"lg2": "en",
+		"lg1": "ht"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-03-16",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 1112,
+		"lg2": "en",
+		"lg1": "hu"
+	},
+ 	{
+		"direction": ">",
+		"last_updated": "2012-12-12",
+		"created": "2012-11-24",
+		"repo": "incubator",
+		"stems": 7606,
+		"lg2": "eng",
+		"lg1": "hye"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2013-01-09",
+		"created": "2012-04-12",
+		"repo": "incubator",
+		"stems": 6649,
+		"lg2": "tat",
+		"lg1": "kaz"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-01-30",
+		"created": "2012-01-23",
+		"repo": "incubator",
+		"stems": 121,
+		"lg2": "mhr",
+		"lg1": "kpv"
+	},
+ 	{
+		"direction": ">",
+		"last_updated": "2012-01-05",
+		"created": "2011-05-31",
+		"repo": "incubator",
+		"stems": 20,
+		"lg2": "ru",
+		"lg1": "kv"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-06-29",
+		"created": "?",
+		"repo": "incubator",
+		"stems": -1,
+		"lg2": "en",
+		"lg1": "ky"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2012-03-24",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 118,
+		"lg2": "kk",
+		"lg1": "ky"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-12-01",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 129,
+		"lg2": "en",
+		"lg1": "la"
+	},
+ 	{
+		"direction": ">",
+		"last_updated": "2012-10-10",
+		"created": "2010-02-12",
+		"repo": "incubator",
+		"stems": 1890,
+		"lg2": "es",
+		"lg1": "la"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2010-02-10",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 64,
+		"lg2": "it",
+		"lg1": "la"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2010-12-03",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 8,
+		"lg2": "lv",
+		"lg1": "lt"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-01-29",
+		"created": "2012-01-25",
+		"repo": "incubator",
+		"stems": 4,
+		"lg2": "lg",
+		"lg1": "lv"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2010-06-19",
+		"created": "2010-03-14",
+		"repo": "incubator",
+		"stems": 36,
+		"lg2": "en",
+		"lg1": "mfe"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2013-01-09",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 2421,
+		"lg2": "sq",
+		"lg1": "mk"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-11-25",
+		"created": "?",
+		"repo": "incubator",
+		"stems": -1,
+		"lg2": "kk",
+		"lg1": "mn"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2010-04-16",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 14998,
+		"lg2": "hi",
+		"lg1": "mr"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2008-09-14",
+		"repo": "incubator",
+		"stems": 144,
+		"lg2": "en",
+		"lg1": "ne"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2010-11-30",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 8370,
+		"lg2": "fr",
+		"lg1": "oc"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2010-01-25",
+		"repo": "incubator",
+		"stems": 923,
+		"lg2": "csb",
+		"lg1": "pl"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2010-12-26",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 354,
+		"lg2": "dsb",
+		"lg1": "pl"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2010-10-30",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 15469,
+		"lg2": "eo",
+		"lg1": "pl"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2009-07-24",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 21,
+		"lg2": "hsb",
+		"lg1": "pl"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2010-12-03",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 395,
+		"lg2": "lt",
+		"lg1": "pl"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2010-12-03",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 285,
+		"lg2": "lv",
+		"lg1": "pl"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2009-05-02",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 69,
+		"lg2": "ru",
+		"lg1": "pl"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2010-01-25",
+		"repo": "incubator",
+		"stems": 2728,
+		"lg2": "sk",
+		"lg1": "pl"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-03-16",
+		"created": "?",
+		"repo": "incubator",
+		"stems": -1,
+		"lg2": "en",
+		"lg1": "ro"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2010-12-06",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 394,
+		"lg2": "rup",
+		"lg1": "ro"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2009-07-14",
+		"created": "?",
+		"repo": "incubator",
+		"stems": -1,
+		"lg2": "cu",
+		"lg1": "ru"
+	},
+ 	{
+		"direction": ">",
+		"last_updated": "2011-09-30",
+		"created": "2011-03-31",
+		"repo": "incubator",
+		"stems": 1637,
+		"lg2": "en",
+		"lg1": "ru"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2007-05-10",
+		"repo": "incubator",
+		"stems": 274,
+		"lg2": "uk",
+		"lg1": "ru"
+	},
+ 	{
+		"direction": "",
+		"last_updated": "2012-10-10",
+		"created": "2008-02-20",
+		"repo": "incubator",
+		"stems": -1,
+		"lg2": "XX",
+		"lg1": "sa"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2010-10-28",
+		"created": "?",
+		"repo": "incubator",
+		"stems": -1,
+		"lg2": "pt",
+		"lg1": "sc"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2012-10-11",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 139,
+		"lg2": "en",
+		"lg1": "sh"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2012-11-27",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 3872,
+		"lg2": "ru",
+		"lg1": "sh"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2009-08-15",
+		"repo": "incubator",
+		"stems": 63,
+		"lg2": "en",
+		"lg1": "si"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-03-16",
+		"created": "?",
+		"repo": "incubator",
+		"stems": -1,
+		"lg2": "en",
+		"lg1": "sk"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-03-16",
+		"created": "?",
+		"repo": "incubator",
+		"stems": -1,
+		"lg2": "en",
+		"lg1": "sl"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2011-04-28",
+		"repo": "incubator",
+		"stems": 942,
+		"lg2": "it",
+		"lg1": "sl"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2009-09-14",
+		"repo": "incubator",
+		"stems": 24110,
+		"lg2": "mk",
+		"lg1": "sl"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2012-04-19",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 6,
+		"lg2": "deu",
+		"lg1": "sme"
+	},
+ 	{
+		"direction": ">",
+		"last_updated": "2011-02-14",
+		"created": "2010-07-18",
+		"repo": "incubator",
+		"stems": 768,
+		"lg2": "sma",
+		"lg1": "sme"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2012-04-19",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 1,
+		"lg2": "spa",
+		"lg1": "sme"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2010-11-12",
+		"created": "?",
+		"repo": "incubator",
+		"stems": -1,
+		"lg2": "en",
+		"lg1": "sw"
+	},
+ 	{
+		"direction": ">",
+		"last_updated": "2011-04-11",
+		"created": "2011-04-11",
+		"repo": "incubator",
+		"stems": 4,
+		"lg2": "rn",
+		"lg1": "sw"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-10-10",
+		"created": "2007-06-08",
+		"repo": "incubator",
+		"stems": 10245,
+		"lg2": "fa",
+		"lg1": "tg"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2011-05-04",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 18,
+		"lg2": "ceb",
+		"lg1": "tgl"
+	},
+ 	{
+		"direction": "<",
+		"last_updated": "2011-08-04",
+		"created": "2010-09-09",
+		"repo": "incubator",
+		"stems": 170,
+		"lg2": "en",
+		"lg1": "tr"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-06-11",
+		"created": "2012-01-29",
+		"repo": "incubator",
+		"stems": 169,
+		"lg2": "tt",
+		"lg1": "tr"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2012-03-25",
+		"created": "?",
+		"repo": "incubator",
+		"stems": -1,
+		"lg2": "kk",
+		"lg1": "tt"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2012-01-10",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 9,
+		"lg2": "ky",
+		"lg1": "tt"
+	},
+ 	{
+		"direction": "<>",
+		"last_updated": "2012-01-30",
+		"created": "2012-01-21",
+		"repo": "incubator",
+		"stems": 82,
+		"lg2": "ru",
+		"lg1": "tt"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2010-11-06",
+		"created": "?",
+		"repo": "incubator",
+		"stems": -1,
+		"lg2": "fa",
+		"lg1": "ur"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2010-10-24",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 142,
+		"lg2": "pa",
+		"lg1": "ur"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2010-10-24",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 33,
+		"lg2": "en",
+		"lg1": "vi"
+	},
+ 	{
+		"direction": "?",
+		"last_updated": "2010-11-08",
+		"created": "?",
+		"repo": "incubator",
+		"stems": 4,
+		"lg2": "xh",
+		"lg1": "zu"
+	}
+]
