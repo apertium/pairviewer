@@ -193,3 +193,10 @@ p.filterInfo:hover {
 #statBox td {
     padding-right: 1em;
 }
+
+#searchBox {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	display: none;
+}

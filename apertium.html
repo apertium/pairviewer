@@ -64,6 +64,13 @@
     .attr("width", w )
     .attr("height", h )
     ;
+
+	var defs = svg.append("svg:defs");
+
+	var gblur = defs.append("filter")
+	.attr("id", "gblur")
+	.append("feGaussianBlur")
+	.attr("stdDeviation", 3);
     
 /*
     // Create a legend in the top left
@@ -350,6 +357,8 @@
     statBoxRows.append("td").text(function(d) { return d});
     statBoxRows.append("td");
 
+	// Search box at the lower right that appears whenever you type out of context.
+	var searchBox = d3.select("body").append("input").attr("id","searchBox");
 
     // Convert <,>,<> into left,right,bidirectional
     // Do not implement ?-to-unknown because you depend on its not being in the array and throwing an exception in configFilterFn(a)
@@ -567,7 +576,7 @@
  
             
             // Source-to-target arrowheads
-            topg.append("svg:defs").selectAll("marker")
+            defs.selectAll("marker")
             .data(["rtrunk","rstaging","rnursery","rincubator"])
             .enter().append("svg:marker")
             .attr("id", String)
@@ -581,7 +590,7 @@
             .attr("d", "M0," + -r/2 + "L" + r + ",0L0," + r/2);
             
             // Target-to-source arrowheads
-            topg.append("svg:defs").selectAll("marker")
+           defs.selectAll("marker")
             .data(["ltrunk","lstaging","lnursery","lincubator"])
             .enter().append("svg:marker")
             .attr("id", String)
@@ -667,12 +676,13 @@
             text.append("svg:text")
             .attr("x", textx)
             .attr("y", texty)
-            .attr("class", "shadow")
+            .attr("class", "circleText shadow")
             .text(function(d) { return d.name; });
 
             text.append("svg:text")
             .attr("x", textx)
             .attr("y", texty)
+			.attr("class", "circleText")
             .text(function(d) { return d.name; });
 
             // Use elliptical arc path segments to doubly-encode directionality.
@@ -801,14 +811,68 @@
         });
     });
 
-    jQuery(document).keydown(function(e) {
-        // Close the filter box on spacebar keydown
-        if (e.which == 32 ) {
-            toggleFilterBox();
-            return false;
-        }
-    });    
+	// Blurs the nodes that do not match the search criteria
+	function filterUnsought(char) {
+		var searchBoxText = jQuery('#searchBox').val();
+		// Alphabet, space
+		if (char >= 65 && char <= 90 || char == 32) {
+			searchBoxText += String.fromCharCode(char);
+		}
+		// Backspace
+		else if (char == 8) {
+			searchBoxText = searchBoxText.substr(0, searchBoxText.length - 1);
+		}
+		var searchBoxText = searchBoxText.toLowerCase();
 
+		jQuery(".circleText").each(function() { 
+				// Check if search box text is in the circle text or the corresponding language
+				if (jQuery(this).text().indexOf(searchBoxText) !== -1
+				|| codeToLanguage(jQuery(this).text()).indexOf(searchBoxText) !== -1 ) {
+					jQuery(this).attr("filter", "");
+				}
+				else {
+					jQuery(this).attr("filter", "url(#gblur)");
+				}
+			})
+		;
+	}
+
+    jQuery(document).keydown(function(e) {
+		if (jQuery('#searchBox').is(':visible')) {
+			// Escape to close the search bar
+			if (e.which == 27) {
+				jQuery('#searchBox').hide();
+				
+				jQuery(".circleText").each(function() {
+					jQuery(this).attr("filter", "");
+				});
+			}
+			else {
+				filterUnsought(e.which);
+			}
+		}
+		else {
+			// If you're typing in e.g. the search bar, the date filters, don't intrude.
+			if (jQuery(':focus').length == 0) {
+				// Close the filter box on spacebar keydown
+				if (e.which == 32 ) {
+				    toggleFilterBox();
+				    e.preventDefault();
+				}
+		
+				// If it's alphabetical, show the search bar!
+				else if (e.which >= 65 && e.which <= 90) {
+					jQuery('#searchBox').show().focus();
+					filterUnsought(e.which);
+				}
+			}
+		}
+    });   
+
+	// Dismiss the search box if it loses focus
+	jQuery("#searchBox").on("blur", function() { 
+		jQuery("#searchBox").hide(); 
+	});
 
     //Make a graph. 
     createGraphDefault();
