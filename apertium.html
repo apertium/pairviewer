@@ -357,6 +357,9 @@
     statBoxRows.append("td").text(function(d) { return d});
     statBoxRows.append("td");
 
+	d3.select("body").append("p").style({"position": "fixed", "bottom": 0, "right": 0})
+	.attr("id", "searchHelp")
+	.text("Type to search!");
 	// Search box at the lower right that appears whenever you type out of context.
 	var searchBox = d3.select("body").append("input").attr("id","searchBox");
 
@@ -837,11 +840,21 @@
 		;
 	}
 
+	function setSearchBoxVisibility(isVisible) {
+		if (isVisible) {
+			jQuery('#searchBox').fadeIn(fadeDelay).focus();
+		}
+		else {
+			jQuery('#searchBox').fadeOut(fadeDelay);
+		}
+	}
+
+	var fadeDelay = 150;
     jQuery(document).keydown(function(e) {
 		if (jQuery('#searchBox').is(':visible')) {
 			// Escape to close the search bar
 			if (e.which == 27) {
-				jQuery('#searchBox').hide();
+				setSearchBoxVisibility(false);
 				
 				jQuery(".circleText").each(function() {
 					jQuery(this).attr("filter", "");
@@ -862,7 +875,7 @@
 		
 				// If it's alphabetical, show the search bar!
 				else if (e.which >= 65 && e.which <= 90) {
-					jQuery('#searchBox').show().focus();
+					setSearchBoxVisibility(true);
 					filterUnsought(e.which);
 				}
 			}
@@ -871,7 +884,7 @@
 
 	// Dismiss the search box if it loses focus
 	jQuery("#searchBox").on("blur", function() { 
-		jQuery("#searchBox").hide(); 
+		setSearchBoxVisibility(false);
 	});
 
     //Make a graph. 
