@@ -874,7 +874,8 @@
 				}
 		
 				// If it's alphabetical, show the search bar!
-				else if (e.which >= 65 && e.which <= 90) {
+				else if (e.which >= 65 && e.which <= 90
+				&& !(e.ctrlKey || e.altKey)) {
 					setSearchBoxVisibility(true);
 					filterUnsought(e.which);
 				}
