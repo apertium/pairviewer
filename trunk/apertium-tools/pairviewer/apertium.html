@@ -49,7 +49,75 @@
 
     // Maximum number of stems a pair could have + 1
     var maxStems = 100000;
-    var numShades = parseInt(Math.log(maxStems)/Math.LN10);
+	// Forbid the 0-9 category (-1)
+    var numShades = parseInt(Math.log(maxStems)/Math.LN10) - 1;
+
+	var translationClasses = ["trunk","staging","nursery","incubator"];
+
+	var goldenYellowScale = {
+		4: ["#ffd54c", "#ffc300", "#CC9C00", "#7f6a26"],
+		5: ["#FFF199", "#FFEC70", "#E0C200", "#CCB100", "#B89F00",],
+		6: ["#FFEC70", "#FFE433", "#E0C200", "#CCB100", "#B89F00", "#A38D00"],
+	};
+	var translationClassColourChoices = [
+		 [colorbrewer.BuGn, colorbrewer.Blues, colorbrewer.YlOrRd, colorbrewer.Greys],
+		[colorbrewer.BuGn, colorbrewer.GnBu, colorbrewer.YlOrBr, colorbrewer.PuRd],
+		[colorbrewer.YlGn, colorbrewer.Blues, colorbrewer.PuRd, colorbrewer.Greys],
+		[colorbrewer.YlGn, colorbrewer.Blues, colorbrewer.PuRd, colorbrewer.OrRd],
+		[colorbrewer.YlGn, colorbrewer.YlGnBu, colorbrewer.Oranges, colorbrewer.Reds],
+		[colorbrewer.YlGn, goldenYellowScale, colorbrewer.Oranges, colorbrewer.Reds],
+	];
+
+	// Vary only lightness.	
+	var niceGreen = d3.rgb("#0c0"), niceYellow = d3.rgb("#fc0"), niceOrange = d3.rgb("#f60"), niceRed = d3.rgb("#c00");
+	var temp = [];
+	[niceGreen, niceYellow, niceOrange, niceRed].forEach(function(c) {
+		var tempp = [];		
+		for (i = 0; i < 5; ++i) {
+			tempp.push(c.darker((i - 1)));
+		}
+		temp.push({5: tempp.reverse()});
+	});
+	translationClassColourChoices.push(temp);
+
+	// Desaturate
+	// Actually this has become so complex. A colour theory specialist needs to analyse this.
+	var temp = [];
+	[d3.hsl(100, 1, 0.5), d3.hsl(51, 1, 0.5), d3.hsl(21, 1, 0.5), d3.hsl(0, 1, 0.4)].forEach(function(c) {
+		var tempp = [];		
+		for (i = 0; i < 5; ++i) {
+			var cc = c.brighter(0);
+			
+			if (cc.h == 0) {
+				cc.s = cc.s / (i+0.5);
+				cc.l = cc.l + 0.3 * Math.sqrt(i);
+			}
+			else if (cc.h == 100) {
+				cc.s = cc.s / (2*i + 1);
+				cc.l = cc.l + 0.01 * Math.exp(i + 0.8);
+			}
+			else {
+				cc.s = cc.s / (i+0.5);
+				cc.l *= Math.pow(1.22, i);
+			}
+			tempp.push(cc);
+		}
+		temp.push({5: tempp.reverse()});
+	});
+	translationClassColourChoices.push(temp);
+
+	//Remove me eventually. Used in testing for 6321356757008384
+	function getUrlVars() {
+		var vars = {};
+		var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+		    vars[key] = value;
+		});
+		return vars;
+	}
+
+	// Pick 7, the firespeaker-approved palette, by default.
+	var paletteChoice = getUrlVars()["colours"] || 7;
+	var translationClassColours = translationClassColourChoices[paletteChoice].map(function(e){return e[numShades + 1].slice(1);});
 
     /* Configurable variables end */
                 
@@ -130,16 +198,15 @@
 
     var repoCheckboxRows = repoCheckboxFields.append("table")
     .selectAll("tr")
-    .data(["trunk","staging","nursery","incubator"])
+    .data(translationClasses)
     .enter()
     .append("tr");
 
     repoCheckboxRows.append("td")
     .style("background-color", function(d) { 
         return d3.scale.ordinal()
-        .domain(["trunk","staging","nursery","incubator"])
-        .range([colorbrewer.BuGn[numShades + 1][5], colorbrewer.GnBu[numShades + 1][5], 
-        colorbrewer.YlOrBr[numShades + 1][5], colorbrewer.PuRd[numShades + 1][5]])
+        .domain(translationClasses)
+        .range(translationClassColours.map(function(e){return e[numShades - 1];}))
         (d); 
     });
 
@@ -175,18 +242,24 @@
     .append("tr");
 
     row.append("td")
-    .style("background-color", function(d){ return colorbrewer.BuGn[numShades + 1].slice(1)[d]; });
+    .style("background-color", function(d){ return translationClassColours[0][d]; });
 
     row.append("td")
-    .text(function(d) { return parseInt(Math.pow(10,d)) + "-" + (parseInt(Math.pow(10,d+1))-1); });
+    .text(function(d) { 
+		// Prevent 1-9 category
+		if (d == 0) {
+			return "≤99";
+		}
+		// Have to +1 since the next category (d=1) begins with 100 (10^2)
+		return parseInt(Math.pow(10,d + 1)) + "-" + (parseInt(Math.pow(10,d+1+1))-1); 
+	});
 
     // Legend palette colour changes on hover over list item
     repoCheckboxRows
     .on("mouseover", function(d) {
         var palette = d3.scale.ordinal()
-                .domain(["trunk","staging","nursery","incubator"])
-                .range([colorbrewer.BuGn[numShades + 1].slice(1), colorbrewer.GnBu[numShades + 1].slice(1), 
-                        colorbrewer.YlOrBr[numShades + 1].slice(1), colorbrewer.PuRd[numShades + 1].slice(1)])
+                .domain(translationClasses)
+                .range(translationClassColours)
                 (d);
 
         row.selectAll("td:first-child")
@@ -486,7 +559,7 @@
             // Filter links by only keeping the one with the highest repo (trunk > staging > incubator > nursery)
             var n = {};
             function repoToPower(repo) {
-                return ["incubator","nursery","staging","trunk"].indexOf(repo);
+                return translationClasses.indexOf(repo);
             }
 
             // Create a table of language codes to new language codes (3-letter terminological if a 3-letter code is ever used, or the 2-letter code otherwise)
@@ -573,7 +646,7 @@
             .links(links)
             .size([w, h])
             .linkDistance(100)
-            .charge(-300)
+            .charge(-150)
             .on("tick", tick)
             .start();
  
@@ -624,18 +697,17 @@
                     if (isNaN(Math.log(d.stems))) {
                         throw new Error("Node has unknown stem count");
                     }
+					// Shunt <= 99 to colour 0
                     return d3.scale.ordinal()
-                    .domain(["trunk","staging","nursery","incubator"])
-                    .range([colorbrewer.BuGn[numShades + 1].slice(1), colorbrewer.GnBu[numShades + 1].slice(1), 
-                            colorbrewer.YlOrBr[numShades + 1].slice(1), colorbrewer.PuRd[numShades + 1].slice(1)])
-                    (d.repo)[parseInt(Math.log(d.stems)/Math.LN10)];
+                    .domain(translationClasses)
+                    .range(translationClassColours)
+                    (d.repo)[ ((d.stems <= 99) ? 0 : parseInt(Math.log(d.stems)/Math.LN10) - 1) ];
                 }
                 catch (e) {
                     // Give it the lightest colour if the stem count is unknown
                     return d3.scale.ordinal()
-                    .domain(["trunk","staging","nursery","incubator"])
-                    .range([colorbrewer.BuGn[numShades + 1].slice(1), colorbrewer.GnBu[numShades + 1].slice(1), 
-                            colorbrewer.YlOrBr[numShades + 1].slice(1), colorbrewer.PuRd[numShades + 1].slice(1)])
+                    .domain(translationClasses)
+                    .range(translationClassColours)
                     (d.repo)[0];
                 }
             })
@@ -649,9 +721,8 @@
 
                 // Legend palette colour changes on hover over list item
                 var palette = d3.scale.ordinal()
-                        .domain(["trunk","staging","nursery","incubator"])
-                        .range([colorbrewer.BuGn[numShades + 1].slice(1), colorbrewer.GnBu[numShades + 1].slice(1), 
-                                colorbrewer.YlOrBr[numShades + 1].slice(1), colorbrewer.PuRd[numShades + 1].slice(1)])
+                        .domain(translationClasses)
+                        .range(translationClassColours)
                         (d.repo);
 
                 row.selectAll("td:first-child")
