@@ -515,8 +515,14 @@
 
     // Note that the file deals with both terminologic (Armenian: hye) and bibliographic (arm) alpha-3 codes
     var twoToThreeTable = {};
+    var threeToTwoTable = {};
     d3.json("codes.json", function(error, table) {
-        twoToThreeTable = jQuery.extend(true, {}, table); 
+        twoToThreeTable = jQuery.extend(true, {}, table);
+
+        // Create threeToTwoTable
+        for (var key in twoToThreeTable) {
+          threeToTwoTable[twoToThreeTable[key]] = key;
+        }
     });
     
     // Converts two-letter and three-letter bibliographic (arm) codes to three-letter terminological (hye) codes where possible
@@ -529,10 +535,8 @@
 
     // Inverse of twoToThree
     function threeToTwo(code) {
-        for(var twoCode in twoToThreeTable) {
-            if (twoToThreeTable[twoCode] === code) {
-                return twoCode;
-            }
+        if (threeToTwoTable[code] !== undefined) {
+            return threeToTwoTable[code];
         }
         return code;
     }
