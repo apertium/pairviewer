@@ -9,7 +9,7 @@ Script to scrape text from GitHub and into JSON format for all language pairs in
 Stem counter by sushain
 """
 
-with open('pairs.json', 'a') as f:
+with open('pairs.json', 'w') as f:
     f.write('[')
 
 class Pair:
@@ -98,6 +98,7 @@ for x in types:
                 repo_table = repo_soup.find('table')
                 repo_tr = repo_table.find_all('tr')
                 number_of_commits = int(repo_soup.find('span', {'class': 'num text-emphasized'}).text.strip().replace(',', ""))-2
+
                 for row in repo_tr:
                     name = row.find_all('td')[1].text
                     if str(name.strip()) == str("modes.xml"):
@@ -114,6 +115,7 @@ for x in types:
                                     direction += ">"
                         if direction == "><":
                             direction = "<>"
+
                     elif ".dix" in str(name.strip()):
                         modes_link = row.find_all('td')[1].find("span").find('a')['href']
                         modes_html = urllib.request.urlopen("https://github.com"+modes_link).read()
@@ -125,6 +127,7 @@ for x in types:
                                     stems = print_info("https://github.com"+pair['href'], bidix=True)
                                 except:
                                     pass
+
                 #last updated
                 commits_link = 'https://github.com/'+'apertium/'+lang_pair_text.strip()+"/commits"
                 commits_html = urllib.request.urlopen(commits_link).read()
@@ -143,6 +146,10 @@ for x in types:
                         current_page = BeautifulSoup(next_page_html, 'html.parser')
                         pairs = current_page.find_all('div', {"class":"commit-group-title"})
                         created = (pairs[-1].text).replace("Commits on", "").strip()
+                        
+                if created == "":
+                    pairs = current_page.find_all('div', {"class":"commit-group-title"})
+                    created = (pairs[-1].text).replace("Commits on", "").strip()
 
                 pair = Pair(created=created, last_updated=last_updated, lg1=lg1.strip(), lg2=lg2.strip(), direction=direction, repo=repo_name, stems=stems)
                 with open('pairs.json', 'a') as f:
