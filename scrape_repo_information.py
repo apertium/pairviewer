@@ -133,28 +133,24 @@ for x in types:
                 last_updated = (commits_repo_lang_pairs[0].text).replace("Commits on", "").strip()
 
                 #initial commit
-                last_page = False
                 current_page = commits_repo_soup
-                while last_page == False:
-                    spans = current_page.find_all('span')
-                    for span in spans:
-                        if span.text == "Older":
-                            pairs = current_page.find_all('div', {"class":"commit-group-title"})
-                            created = (pairs[-1].text).replace("Commits on", "").strip()
-                            last_page = True
-                    for y in current_page.find_all('a'):
-                        if y.text == "Older":
-                            next_page = y['href']
-                            splitted = y['href'].split('+')[0]
-                            next_page = splitted + '+' + str(number_of_commits)
-                            next_page_html = urllib.request.urlopen(next_page).read()
-                            current_page = BeautifulSoup(next_page_html, 'html.parser')
+                for y in current_page.find_all('a'):
+                    if y.text == "Older":
+                        next_page = y['href']
+                        splitted = y['href'].split('+')[0]
+                        next_page = splitted + '+' + str(number_of_commits)
+                        next_page_html = urllib.request.urlopen(next_page).read()
+                        current_page = BeautifulSoup(next_page_html, 'html.parser')
+                        pairs = current_page.find_all('div', {"class":"commit-group-title"})
+                        created = (pairs[-1].text).replace("Commits on", "").strip()
+
                 pair = Pair(created=created, last_updated=last_updated, lg1=lg1.strip(), lg2=lg2.strip(), direction=direction, repo=yummy, stems=stems)
                 with open('pairs.json', 'a') as f:
                     f.write(json.dumps(pair, default=lambda o: o.__dict__))
                     f.write(",\n")
                     print(json.dumps(pair, default=lambda o: o.__dict__))
                     f.close()
+                    
         except IndexError:
             pass
 
