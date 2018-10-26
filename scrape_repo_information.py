@@ -78,7 +78,7 @@ for x in types:
                 direction = ""
                 created = ""
                 last_updated = ""
-                yummy = x
+                repo_name = x
                 stems = 0
 
                 td_element = i.find_all('td')[1]
@@ -144,13 +144,13 @@ for x in types:
                         pairs = current_page.find_all('div', {"class":"commit-group-title"})
                         created = (pairs[-1].text).replace("Commits on", "").strip()
 
-                pair = Pair(created=created, last_updated=last_updated, lg1=lg1.strip(), lg2=lg2.strip(), direction=direction, repo=yummy, stems=stems)
+                pair = Pair(created=created, last_updated=last_updated, lg1=lg1.strip(), lg2=lg2.strip(), direction=direction, repo=repo_name, stems=stems)
                 with open('pairs.json', 'a') as f:
                     f.write(json.dumps(pair, default=lambda o: o.__dict__))
                     f.write(",\n")
                     print(json.dumps(pair, default=lambda o: o.__dict__))
                     f.close()
-                    
+
         except IndexError:
             pass
 
