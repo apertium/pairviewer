@@ -4,23 +4,17 @@ import pdb
 import xml.etree.ElementTree as xml
 import argparse, urllib.request
 import json
+import collections
+import time
+
 """
 Script to scrape text from GitHub and into JSON format for all language pairs in Apertium.
 Stem counter by sushain
 """
 
-with open('pairs.json', 'w') as f:
-    f.write('[')
 
-class Pair:
-    def __init__(self, lg1, lg2, last_updated, created, direction, repo, stems):
-        self.lg1 = lg1 #done
-        self.lg2 = lg2 #done
-        self.last_updated = last_updated
-        self.created = created
-        self.direction = direction #done
-        self.repo = repo #done
-        self.stems = stems #done
+pairs = []
+Pair = collections.namedtuple('Pair', 'lg1 lg2 last_updated created direction repo stems')
 
 types = ["trunk", "incubator", "nursery", "staging"]
 
@@ -55,24 +49,21 @@ def get_info(uri, bidix=None):
     out = {}
     if(bi):
         out['stems'] = len(tree.findall("*[@id='main']/e//l"))
-        #print('Stems: %s ' % len(tree.findall("*[@id='main']/e//l")))
     else:
-        #print('Stems: %s' % len(tree.findall("section/*[@lm]")))  # there can be sections other than id="main"
         out['stems'] = len(tree.findall("section/*[@lm]"))  # there can be sections other than id="main"
         if tree.find('pardefs') is not None:
-            #print('Paradigms: %s' % len(tree.find('pardefs').findall("pardef")))
             out['paradigms'] = len(tree.find('pardefs').findall("pardef"))
     return out
 
+
+
+
 for x in types:
-    html_data = urllib.request.urlopen('https://github.com/apertium/apertium-'+x)
-    html = html_data.read()
-    soup = BeautifulSoup(html, 'html.parser')
-    table = soup.find('table')
-    tr = soup.find_all('tr')
-    for i in tr:
+    html_data = urllib.request.urlopen('https://api.github.com/repos/apertium/apertium-'+x+'/'+'contents')
+    html = json.loads(html_data.read())
+    for i in html:
         try:
-            if "apertium" in i.find_all('td')[1].text:
+            if "apertium" in i["name"]:
                 lg1 = ""
                 lg2 = ""
                 direction = ""
@@ -81,85 +72,44 @@ for x in types:
                 repo_name = x
                 stems = 0
 
-                td_element = i.find_all('td')[1]
-                link = td_element.find("span").find('a')['href']
+                lang_pair_name = i["name"]
+                #link = i["download_url"]
 
                 #getting names
-                text = td_element.text
-                important = text.split('@')[0]
-                lang_pair_text = important
-                important = important.split('-')
+                important = lang_pair_name.split('-')
                 lg1 = important[1]
                 lg2 = important[2]
 
                 #getting into repository
-                repo_html_data = urllib.request.urlopen('https://github.com'+link).read()
-                repo_soup = BeautifulSoup(repo_html_data, 'html.parser')
-                repo_table = repo_soup.find('table')
-                repo_tr = repo_table.find_all('tr')
-                number_of_commits = int(repo_soup.find('span', {'class': 'num text-emphasized'}).text.strip().replace(',', ""))-2
+                link = "https://api.github.com/repos/apertium/"+lang_pair_name+"/contents"
+                repo_json = json.loads(urllib.request.urlopen(link).read())
+                for el in repo_json:
+                    if el["name"] == "modes.xml":
+                        download_url = el["download_url"]
+                        html_for_blob = urllib.request.urlopen(download_url).read()
+                        if lg1+'-'+lg2 in str(html_for_blob):
+                            direction += "<"
+                        if lg2+'-'+lg1 in str(html_for_blob):
+                            direction += ">"
 
-                for row in repo_tr:
-                    name = row.find_all('td')[1].text
-                    if str(name.strip()) == str("modes.xml"):
-                        modes_link = row.find_all('td')[1].find("span").find('a')['href']
-                        modes_html = urllib.request.urlopen('https://github.com'+modes_link).read()
-                        modes_repo_soup = BeautifulSoup(modes_html, 'html.parser')
-                        modes_repo_lang_pairs = modes_repo_soup.find_all('span', {"class":"pl-s"})
-                        for pair in modes_repo_lang_pairs:
-                            if len(pair.text.split("-")) == 2:
-                                arr = pair.text.split("-")
-                                if arr[0].strip().replace('\"', "") == lg1.strip() and arr[1].strip().replace('\"', "") == lg2.strip():
-                                    direction += "<"
-                                elif arr[0].strip().replace('\"', "") == lg2.strip() and arr[1].strip().replace('\"', "") == lg1.strip():
-                                    direction += ">"
-                        if direction == "><":
-                            direction = "<>"
+                    elif ".dix" in el["name"]:
+                        stems = print_info(el["download_url"], bidix=True)
 
-                    elif ".dix" in str(name.strip()):
-                        modes_link = row.find_all('td')[1].find("span").find('a')['href']
-                        modes_html = urllib.request.urlopen("https://github.com"+modes_link).read()
-                        modes_repo_soup = BeautifulSoup(modes_html, 'html.parser')
-                        modes_repo_lang_pairs = modes_repo_soup.find_all('a')
-                        for pair in modes_repo_lang_pairs:
-                            if pair.text.strip() == "Raw" or pair.text.strip() == "View Raw":
-                                try:
-                                    stems = print_info("https://github.com"+pair['href'], bidix=True)
-                                except:
-                                    pass
+                    if direction == "><":
+                        direction = "<>"
 
-                #last updated
-                commits_link = 'https://github.com/'+'apertium/'+lang_pair_text.strip()+"/commits"
+                commits_link = 'https://api.github.com/'+'repos/apertium/'+lang_pair_name.strip()+"/commits"
                 commits_html = urllib.request.urlopen(commits_link).read()
-                commits_repo_soup = BeautifulSoup(commits_html, 'html.parser')
-                commits_repo_lang_pairs = commits_repo_soup.find_all('div', {"class":"commit-group-title"})
-                last_updated = (commits_repo_lang_pairs[0].text).replace("Commits on", "").strip()
 
-                #initial commit
-                current_page = commits_repo_soup
-                for y in current_page.find_all('a'):
-                    if y.text == "Older":
-                        next_page = y['href']
-                        splitted = y['href'].split('+')[0]
-                        next_page = splitted + '+' + str(number_of_commits)
-                        next_page_html = urllib.request.urlopen(next_page).read()
-                        current_page = BeautifulSoup(next_page_html, 'html.parser')
-                        pairs = current_page.find_all('div', {"class":"commit-group-title"})
-                        created = (pairs[-1].text).replace("Commits on", "").strip()
-                        
-                if created == "":
-                    pairs = current_page.find_all('div', {"class":"commit-group-title"})
-                    created = (pairs[-1].text).replace("Commits on", "").strip()
+                last_updated = json.loads(commits_html)[0]["commit"]["committer"]["date"]
+                created = json.loads(commits_html)[-1]["commit"]["committer"]["date"]
 
                 pair = Pair(created=created, last_updated=last_updated, lg1=lg1.strip(), lg2=lg2.strip(), direction=direction, repo=repo_name, stems=stems)
-                with open('pairs.json', 'a') as f:
-                    f.write(json.dumps(pair, default=lambda o: o.__dict__))
-                    f.write(",\n")
-                    print(json.dumps(pair, default=lambda o: o.__dict__))
-                    f.close()
-
-        except IndexError:
+                print(json.dumps(pair, default=lambda o: o.__dict__))
+                pairs.append(pair)
+                time.sleep(3) #if you change this value you will get blocked likely
+        except:
             pass
 
 with open('pairs.json', 'a') as f:
-    f.write(']')
+    json_string = json.dumps([ob.__dict__ for ob in pairs])
