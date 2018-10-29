@@ -34,21 +34,21 @@ def get_info(uri):
 
     return len(tree.findall("*[@id='main']/e//l"))
 
-
-
 if __name__ == "__main__":
     for x in types:
+        repo_name = x
         types_html_url = "https://api.github.com/repos/apertium/apertium-%s/contents?" % x
         types_html_data = urllib.request.urlopen(types_html_url + params)
         types_html = json.loads(types_html_data.read())
         for i in types_html:
             if "apertium" in i["name"] and len(i["name"].split('-')) == 3:
-                repo_name = x
                 direction = ""
                 lang_pair_name = i["name"]
+
                 #getting names
                 lg1 = lang_pair_name.split('-')[1]
                 lg2 = lang_pair_name.split('-')[2]
+
                 #getting into repository
                 link = "https://api.github.com/repos/apertium/%s/contents?" % lang_pair_name
                 repo_json = json.loads(urllib.request.urlopen(link + params).read())
