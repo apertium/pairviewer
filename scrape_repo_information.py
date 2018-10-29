@@ -18,7 +18,7 @@ types = ["trunk", "nursery", "incubator", "staging"]
 
 def print_info(uri):
     returned = get_info(uri)
-    return returned['stems']
+    return returned
 
 def get_info(uri):
     try:
@@ -27,9 +27,7 @@ def get_info(uri):
     except:
         return -1 # FIXME: error handling
 
-    out = {}
-    out['stems'] = len(tree.findall("*[@id='main']/e//l"))
-    return out
+    return len(tree.findall("*[@id='main']/e//l"))
 
 for x in types:
     html_url = "https://api.github.com/repos/apertium/apertium-%s/contents" % x
@@ -67,7 +65,7 @@ for x in types:
                 print(json.dumps(pair, default=lambda o: dict(o)))
                 pairs.append(pair)
                 time.sleep(3) #if you change this value you will get blocked likely
-                
+
             except (IndexError, TypeError):
                 pass #this happens if there is a weird entry in the repo
 
