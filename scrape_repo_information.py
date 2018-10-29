@@ -6,13 +6,14 @@ import json
 import collections
 import time
 import urllib
+import os
 """
 Script to scrape text from GitHub and into JSON format for all language pairs in Apertium.
 Stem counter by sushain
 """
 
-CLIENT_ID = ""
-CLIENT_SECRET = ""
+CLIENT_ID = os.environ['GITHUB_CLIENT_ID']
+CLIENT_SECRET = os.environ['GITHUB_SECRET_CLIENT_ID']
 
 pairs = []
 Pair = collections.namedtuple('Pair', 'lg1 lg2 last_updated created direction repo stems')
@@ -34,7 +35,6 @@ def get_info(uri):
 
 for x in types:
     html_url = "https://api.github.com/repos/apertium/apertium-%s/contents?" % x
-    pdb.set_trace()
     html_data = urllib.request.urlopen(html_url + params)
     html = json.loads(html_data.read())
     for i in html:
@@ -68,7 +68,7 @@ for x in types:
                 pair = Pair(created=created, last_updated=last_updated, lg1=lg1.strip(), lg2=lg2.strip(), direction=direction, repo=repo_name, stems=stems)
                 print(json.dumps(pair, default=lambda o: dict(o)))
                 pairs.append(pair)
-                time.sleep(3) #if you change this value you will get blocked likely
+                time.sleep(0.1) #if you change this value you will get blocked likely
 
             except (IndexError, TypeError):
                 pass #this happens if there is a weird entry in the repo
