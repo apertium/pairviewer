@@ -5,16 +5,19 @@ import argparse, urllib.request
 import json
 import collections
 import time
-
+import urllib
 """
 Script to scrape text from GitHub and into JSON format for all language pairs in Apertium.
 Stem counter by sushain
 """
 
+CLIENT_ID = ""
+CLIENT_SECRET = ""
 
 pairs = []
 Pair = collections.namedtuple('Pair', 'lg1 lg2 last_updated created direction repo stems')
 types = ["trunk", "nursery", "incubator", "staging"]
+params = urllib.parse.urlencode(dict({'client_id': CLIENT_ID, 'client_secret': CLIENT_SECRET}))
 
 def print_info(uri):
     returned = get_info(uri)
@@ -30,8 +33,9 @@ def get_info(uri):
     return len(tree.findall("*[@id='main']/e//l"))
 
 for x in types:
-    html_url = "https://api.github.com/repos/apertium/apertium-%s/contents" % x
-    html_data = urllib.request.urlopen(html_url)
+    html_url = "https://api.github.com/repos/apertium/apertium-%s/contents?" % x
+    pdb.set_trace()
+    html_data = urllib.request.urlopen(html_url + params)
     html = json.loads(html_data.read())
     for i in html:
         if "apertium" in i["name"]:
@@ -43,8 +47,8 @@ for x in types:
                 lg1 = lang_pair_name.split('-')[1]
                 lg2 = lang_pair_name.split('-')[2]
                 #getting into repository
-                link = "https://api.github.com/repos/apertium/%s/contents" % lang_pair_name
-                repo_json = json.loads(urllib.request.urlopen(link).read())
+                link = "https://api.github.com/repos/apertium/%s/contents?" % lang_pair_name
+                repo_json = json.loads(urllib.request.urlopen(link + params).read())
                 for el in repo_json:
                     if el["name"] == "modes.xml":
                         download_url = el["download_url"]
@@ -57,8 +61,8 @@ for x in types:
                         stems = print_info(el["download_url"])
                     if direction == "><":
                         direction = "<>"
-                commits_link = "https://api.github.com/repos/apertium/%s/commits" % lang_pair_name
-                commits_html = urllib.request.urlopen(commits_link).read()
+                commits_link = "https://api.github.com/repos/apertium/%s/commits?" % lang_pair_name
+                commits_html = urllib.request.urlopen(commits_link + params).read()
                 last_updated = json.loads(commits_html)[0]["commit"]["committer"]["date"]
                 created = json.loads(commits_html)[-1]["commit"]["committer"]["date"]
                 pair = Pair(created=created, last_updated=last_updated, lg1=lg1.strip(), lg2=lg2.strip(), direction=direction, repo=repo_name, stems=stems)
