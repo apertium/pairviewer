@@ -1,33 +1,35 @@
-import urllib.request
-import pdb
-import xml.etree.ElementTree as xml
-import argparse, urllib.request
-import json
 import collections
+import json
+import os
 import time
 import urllib
-import os
+import urllib.request
+import xml.etree.ElementTree as xml
+
 """
 Script to scrape text from GitHub and into JSON format for all language pairs in Apertium.
 Stem counter by sushain
+One entry in the JSON file would be
+{"lg1": "afr", "lg2": "nld", "last_updated": "2018-07-21T23:55:22Z", "created": "2012-02-08T15:12:04Z", "direction": "<>", "repo": "trunk", "stems": 6269}
 """
+
 if "GITHUB_CLIENT_ID" in os.environ:
     CLIENT_ID = os.environ["GITHUB_CLIENT_ID"]
 else:
     CLIENT_ID = ""
-    print("There doesn't seem to be a GitHub Client ID; the scraping process may not be fast")
+    print("There doesn't seem to be a GitHub Client ID; the scraping process may not be fast get one here https://github.com/settings/applications/new")
+
 if "GITHUB_SECRET_CLIENT_ID" in os.environ:
     CLIENT_SECRET = os.environ["GITHUB_SECRET_CLIENT_ID"]
 else:
     CLIENT_SECRET = ""
-    print("There doesn't seem to be a GitHub Client Secret; the scraping process may not be fast")
+    print("There doesn't seem to be a GitHub Client Secret; the scraping process may not be fast get one here https://github.com/settings/applications/new")
 
 
-pairs = []
+
 Pair = collections.namedtuple("Pair", "lg1 lg2 last_updated created direction repo stems")
 types = ["trunk", "nursery", "incubator", "staging"]
 
-params = urllib.parse.urlencode(dict({"client_id": CLIENT_ID, "client_secret": CLIENT_SECRET}))
 
 def print_info(uri):
     try:
@@ -39,6 +41,8 @@ def print_info(uri):
     return len(tree.findall("*[@id='main']/e//l"))
 
 def main():
+    pairs = []
+    params = urllib.parse.urlencode(dict({"client_id": CLIENT_ID, "client_secret": CLIENT_SECRET}))
     for repo_name in types:
         types_html_url = "https://api.github.com/repos/apertium/apertium-%s/contents?" % repo_name
         types_html_data = urllib.request.urlopen(types_html_url + params)
@@ -71,11 +75,19 @@ def main():
                     if direction == "><":
                         direction = "<>"
 
-                commits_link = "https://api.github.com/repos/apertium/%s/commits?" % lang_pair_name
-                commits_html = urllib.request.urlopen(commits_link + params).read()
-                commit_json = json.loads(commits_html)
-                last_updated = commit_json[0]["commit"]["committer"]["date"]
-                created = commit_json[-1]["commit"]["committer"]["date"]
+                first_page_commits_link = "https://api.github.com/repos/apertium/%s/commits?" % lang_pair_name
+                first_page_commits_resp = urllib.request.urlopen(first_page_commits_link + params)
+                first_page_commits_html = first_page_commits_resp.read()
+                first_page_commit_json = json.loads(first_page_commits_html)
+                number_of_pages = first_page_commits_resp.info().get("Link").split(',')[1].split('page=')[1].split('>')[0]
+                last_page_commits_link = "https://api.github.com/repos/apertium/%s/commits?page=%s&" % (lang_pair_name, number_of_pages)
+                last_page_commits_html = urllib.request.urlopen(last_page_commits_link + params).read()
+                print(last_page_commits_link + params)
+
+                last_page_commit_json = json.loads(last_page_commits_html)
+                last_updated = first_page_commit_json[0]["commit"]["committer"]["date"]
+                created = last_page_commit_json[-1]["commit"]["committer"]["date"]
+
                 pair = Pair(created=created, last_updated=last_updated, lg1=lg1.strip(), lg2=lg2.strip(), direction=direction, repo=repo_name, stems=stems)
                 print(json.dumps(pair._asdict(), default=lambda o: dict(o)))
                 pairs.append(pair)
