@@ -5,6 +5,7 @@ import time
 import urllib
 import urllib.request
 import xml.etree.ElementTree as xml
+import sys
 
 """
 Script to scrape text from GitHub and into JSON format for all language pairs in Apertium.
@@ -17,21 +18,21 @@ if "GITHUB_CLIENT_ID" in os.environ:
     CLIENT_ID = os.environ["GITHUB_CLIENT_ID"]
 else:
     CLIENT_ID = ""
-    print("There doesn't seem to be a GitHub Client ID; the scraping process may not be fast get one here https://github.com/settings/applications/new")
+    print("There doesn't seem to be a GitHub Client ID; Please set an enviornment variable of GITHUB_CLINT_ID to your client id. the scraping process may not be fast get one here https://github.com/settings/applications/new")
 
 if "GITHUB_SECRET_CLIENT_ID" in os.environ:
     CLIENT_SECRET = os.environ["GITHUB_SECRET_CLIENT_ID"]
 else:
     CLIENT_SECRET = ""
-    print("There doesn't seem to be a GitHub Client Secret; the scraping process may not be fast get one here https://github.com/settings/applications/new")
+    print("There doesn't seem to be a GitHub Client Secret; Please set an enviornment variable of CLIENT_SECRET to your client secret id. the scraping process may not be fast get one here https://github.com/settings/applications/new")
 
 Pair = collections.namedtuple("Pair", "lg1 lg2 last_updated created direction repo stems")
-types = ["trunk", "nursery", "incubator", "staging"]
+types = ["trunk", "incubator", "nursery", "staging"]
 
-def print_info(uri):
+def get_bidix_stem_count(uri):
     try:
-        dictX = str((urllib.request.urlopen(uri)).read(), "utf-8")
-        tree = xml.fromstring(dictX)
+        dix_content = urllib.request.urlopen(uri).read().decode()
+        tree = xml.fromstring(dix_content)
     except:
         return -1 # FIXME: error handling
 
@@ -41,10 +42,10 @@ def main():
     pairs = []
     params = urllib.parse.urlencode(dict({"client_id": CLIENT_ID, "client_secret": CLIENT_SECRET}))
     for repo_name in types:
-        types_html_url = "https://api.github.com/repos/apertium/apertium-%s/contents?" % repo_name
-        types_html_data = urllib.request.urlopen(types_html_url + params)
-        types_html = json.loads(types_html_data.read())
-        for type_content in types_html:
+        types_data_url = "https://api.github.com/repos/apertium/apertium-%s/contents?" % repo_name
+        types_data_data = urllib.request.urlopen(types_data_url + params)
+        types_data = json.loads(types_data_data.read())
+        for type_content in types_data:
             if "apertium" in type_content["name"] and (type_content["name"].count("-") == 2):
                 direction = ""
                 lang_pair_name = type_content["name"]
@@ -66,36 +67,41 @@ def main():
                                 direction += ">"
 
                     elif el["name"] == "apertium-%s.%s.dix" % ((lg1+"-"+lg2), (lg1+"-"+lg2)):
-                        stems = print_info(el["download_url"])
+                        stems = get_bidix_stem_count(el["download_url"])
 
                     if direction == "><":
                         direction = "<>"
 
                 first_page_commits_link = "https://api.github.com/repos/apertium/%s/commits?" % lang_pair_name
                 first_page_commits_resp = urllib.request.urlopen(first_page_commits_link + params)
-                first_page_commits_html = first_page_commits_resp.read()
-                first_page_commit_json = json.loads(first_page_commits_html)
+                first_page_commits_data = first_page_commits_resp.read()
+                first_page_commit_json = json.loads(first_page_commits_data)
 
                 if first_page_commits_resp.info().get("Link") is not None:
                     number_of_pages = first_page_commits_resp.info().get("Link").split(',')[1].split('page=')[1].split('>')[0]
                 else:
-                    number_of_pages = 0
+                    number_of_pages = 1
 
                 last_page_commits_link = "https://api.github.com/repos/apertium/%s/commits?page=%s&" % (lang_pair_name, number_of_pages)
-                last_page_commits_html = urllib.request.urlopen(last_page_commits_link + params).read()
-                print(last_page_commits_link + params)
+                last_page_commits_data = urllib.request.urlopen(last_page_commits_link + params).read()
 
-                last_page_commit_json = json.loads(last_page_commits_html)
+                last_page_commit_json = json.loads(last_page_commits_data)
                 last_updated = first_page_commit_json[0]["commit"]["committer"]["date"]
                 created = last_page_commit_json[-1]["commit"]["committer"]["date"]
 
-                pair = Pair(created=created, last_updated=last_updated, lg1=lg1.strip(), lg2=lg2.strip(), direction=direction, repo=repo_name, stems=stems)
+                pair = Pair(created=created, last_updated=last_updated, lg1=lg1, lg2=lg2, direction=direction, repo=repo_name, stems=stems)
                 print(json.dumps(pair._asdict(), default=lambda o: dict(o)))
                 pairs.append(pair)
 
-    with open("pairs.json", "a") as f:
-        json_string = json.dumps([ob._asdict() for ob in pairs])
-        f.write(json_string)
+                if CLIENT_SECRET == "":
+                    sleep(5)
+
+    if len(sys.argv) > 1:
+        with open(sys.argv[1], "w") as f:
+            json.dump([ob._asdict() for ob in pairs], f)
+    else:
+        with open('pairs.json', "w") as f:
+            json.dump([ob._asdict() for ob in pairs], f)
 
 if __name__ == "__main__":
     main()
