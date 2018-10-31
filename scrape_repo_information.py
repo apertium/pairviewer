@@ -25,11 +25,8 @@ else:
     CLIENT_SECRET = ""
     print("There doesn't seem to be a GitHub Client Secret; the scraping process may not be fast get one here https://github.com/settings/applications/new")
 
-
-
 Pair = collections.namedtuple("Pair", "lg1 lg2 last_updated created direction repo stems")
 types = ["trunk", "nursery", "incubator", "staging"]
-
 
 def print_info(uri):
     try:
@@ -51,7 +48,6 @@ def main():
             if "apertium" in type_content["name"] and (type_content["name"].count("-") == 2):
                 direction = ""
                 lang_pair_name = type_content["name"]
-
                 #getting names
                 _, lg1, lg2 = lang_pair_name.split("-")
 
@@ -79,7 +75,12 @@ def main():
                 first_page_commits_resp = urllib.request.urlopen(first_page_commits_link + params)
                 first_page_commits_html = first_page_commits_resp.read()
                 first_page_commit_json = json.loads(first_page_commits_html)
-                number_of_pages = first_page_commits_resp.info().get("Link").split(',')[1].split('page=')[1].split('>')[0]
+
+                if first_page_commits_resp.info().get("Link") is not None:
+                    number_of_pages = first_page_commits_resp.info().get("Link").split(',')[1].split('page=')[1].split('>')[0]
+                else:
+                    number_of_pages = 0
+
                 last_page_commits_link = "https://api.github.com/repos/apertium/%s/commits?page=%s&" % (lang_pair_name, number_of_pages)
                 last_page_commits_html = urllib.request.urlopen(last_page_commits_link + params).read()
                 print(last_page_commits_link + params)
