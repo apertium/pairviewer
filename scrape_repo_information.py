@@ -46,18 +46,19 @@ def main():
         types_data_data = urllib.request.urlopen(types_data_url + params)
         types_data = json.loads(types_data_data.read())
         for type_content in types_data:
-            lang_pair_name = type_content["name"]
-            if "apertium" in lang_pair_name and (lang_pair_name.count("-") == 2):
+            lang_name_pair = type_content["name"]
+
+            if "apertium" in lang_name_pair and (lang_name_pair.count("-") == 2):
                 direction = ""
 
                 #getting names
-                _, lg1, lg2 = lang_pair_name.split("-")
+                _, lg1, lg2 = lang_name_pair.split("-")
 
                 #getting into repository
                 if lg1 == lg2:
                     continue
 
-                link = "https://api.github.com/repos/apertium/%s/contents?" % lang_pair_name
+                link = "https://api.github.com/repos/apertium/%s/contents?" % lang_name_pair
                 repo_json = json.loads(urllib.request.urlopen(link + params).read())
                 for el in repo_json:
 
@@ -78,7 +79,7 @@ def main():
                     if direction == "><":
                         direction = "<>"
 
-                first_page_commits_link = "https://api.github.com/repos/apertium/%s/commits?" % lang_pair_name
+                first_page_commits_link = "https://api.github.com/repos/apertium/%s/commits?" % lang_name_pair
                 first_page_commits_resp = urllib.request.urlopen(first_page_commits_link + params)
                 first_page_commits_data = first_page_commits_resp.read()
                 first_page_commit_json = json.loads(first_page_commits_data)
@@ -90,7 +91,7 @@ def main():
                 else:
                     number_of_pages = 1
 
-                last_page_commits_link = "https://api.github.com/repos/apertium/%s/commits?page=%s&" % (lang_pair_name, number_of_pages)
+                last_page_commits_link = "https://api.github.com/repos/apertium/%s/commits?page=%s&" % (lang_name_pair, number_of_pages)
                 last_page_commits_data = urllib.request.urlopen(last_page_commits_link + params).read()
 
                 last_page_commit_json = json.loads(last_page_commits_data)
