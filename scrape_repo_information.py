@@ -7,11 +7,18 @@ import urllib.request
 import xml.etree.ElementTree as xml
 import sys
 import time
+
 """
 Script to scrape text from GitHub and into JSON format for all language pairs in Apertium.
 Stem counter by sushain
 One entry in the JSON file would be
 {"lg1": "afr", "lg2": "nld", "last_updated": "2018-07-21T23:55:22Z", "created": "2012-02-08T15:12:04Z", "direction": "<>", "repo": "trunk", "stems": 6269}
+
+To run the program type 'python scrape_repo_information.py' if you would like the script to write to a file pairs.json(It will create the file if it doesn't exist)
+Otherwise type 'python scrape_repo_information.py filename' where filename is the file where you would like the program to write JSON to
+
+To prevent throttling set the enviornment variable for "GITHUB_CLIENT_ID" and "GITHUB_SECRET_CLIENT_ID" to those values respectively
+You can get them here https://github.com/settings/applications/new
 """
 
 if "GITHUB_CLIENT_ID" in os.environ:
