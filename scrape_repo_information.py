@@ -84,7 +84,7 @@ def main():
                 first_page_commits_data = first_page_commits_resp.read()
                 first_page_commit_json = json.loads(first_page_commits_data)
 
-                # '<https://api.github.com/repositories/124326860/commits?client_id=f55561171db254c8481c&client_secret=59fa2eb87e77f2f841cc4fba06fb6185121d1b5e&page=2>; rel="next", <https://api.github.com/repositories/124326860/commits?client_id=f55561171db254c8481c&client_secret=59fa2eb87e77f2f841cc4fba06fb6185121d1b5e&page=21>; rel="last"'
+                # This is the format of the link to find the initial commit: '<https://api.github.com/repositories/124326860/commits?client_id=f55561171db254c8481c&client_secret=59fa2eb87e77f2f841cc4fba06fb6185121d1b5e&page=2>; rel="next", <https://api.github.com/repositories/124326860/commits?client_id=f55561171db254c8481c&client_secret=59fa2eb87e77f2f841cc4fba06fb6185121d1b5e&page=21>; rel="last"'
 
                 if first_page_commits_resp.info().get("Link") is not None:
                     number_of_pages = first_page_commits_resp.info().get("Link").split(",")[1].split("page=")[1].split(">")[0]
