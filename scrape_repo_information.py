@@ -51,10 +51,10 @@ def main():
             if "apertium" in lang_name_pair and (lang_name_pair.count("-") == 2):
                 direction = ""
 
-                #getting names
+                # parse out language codes
                 _, lg1, lg2 = lang_name_pair.split("-")
 
-                #getting into repository
+                # iterate through files in repository
                 if lg1 == lg2:
                     continue
 
@@ -64,7 +64,7 @@ def main():
 
                     if el["name"] == "modes.xml":
                         download_url = el["download_url"]
-                        html_for_blob_utf_8 = str((urllib.request.urlopen(download_url)).read(), "utf-8")
+                        html_for_blob_utf_8 = urllib.request.urlopen(download_url).read().decode()
                         tree = xml.fromstring(html_for_blob_utf_8)
 
                         for mode in tree:
