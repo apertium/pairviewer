@@ -10,5 +10,5 @@ The relevant Apertium wiki page (along with local setup instructions!) is availa
 - check language pair name, repository name, creation date, date of last update, and stem amount from individual pairs
 - scrape language data from GitHub (requires Python 3)
 
-![Screenshot of Pairviewer. The mouse is hovering over Northern Sami <-> Estonian.](http://u.cubeupload.com/somethingpretty/pairviewer1.png)
-![](http://u.cubeupload.com/somethingpretty/pairviewer3.png)
+![Screenshot of Pairviewer. Filtered as default. The mouse is hovering over Northern Sami <-> Estonian.](http://u.cubeupload.com/somethingpretty/pairviewer1.png)
+![Screenshot of Pairviewer. Only "incubator" and "trunk" progress branches are selected and a search for "mal" was being done.](http://u.cubeupload.com/somethingpretty/pairviewer3.png)
