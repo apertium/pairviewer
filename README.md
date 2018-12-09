@@ -2,10 +2,10 @@
 
 An interactive [D3.js](https://d3js.org/) graph of [Apertium language pairs](http://wiki.apertium.org/wiki/List_of_language_pairs) you can search, filter, and drag around. [Online demo](http://ilazki.thinkgeek.co.uk/~firespeaker/pairviewer/apertium.html).
 
-The relevant Apertium wiki page (along with local setup instructions!) is available [**here**](http://wiki.apertium.org/wiki/Pair_viewer).
+See the relevant Apertium [wiki page](http://wiki.apertium.org/wiki/Pairviewer) for local setup instructions.
 
 **Features**:
-- filter by language pair progress branch, directionality, stem count, creation date, and date of last update
+- filter by language pair progress stage, directionality, stem count, creation date, and date of last update
 - search by language code
 - check language pair name, repository name, creation date, date of last update, and stem amount from individual pairs
 - scrape language data from GitHub (requires Python 3)
