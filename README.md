@@ -1,8 +1,8 @@
 # pairviewer
 
-An interactive [D3.js](https://d3js.org/) graph of [Apertium language pairs](http://wiki.apertium.org/wiki/List_of_language_pairs) you can search, filter, and drag around. [Online demo](http://ilazki.thinkgeek.co.uk/~firespeaker/pairviewer/apertium.html).
+An interactive [D3.js](https://d3js.org/) graph of [Apertium language pairs](https://wiki.apertium.org/wiki/List_of_language_pairs) you can search, filter, and drag around. [Online demo](http://ilazki.thinkgeek.co.uk/~firespeaker/pairviewer/apertium.html).
 
-See the relevant Apertium [wiki page](http://wiki.apertium.org/wiki/Pairviewer) for local setup instructions.
+See the relevant Apertium [wiki page](https://wiki.apertium.org/wiki/Pairviewer) for local setup instructions.
 
 **Features**:
 - filter by language pair progress stage, directionality, stem count, creation date, and date of last update
